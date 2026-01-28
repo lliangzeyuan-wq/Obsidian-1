@@ -1,0 +1,1 @@
+[C 文件读写 | 菜鸟教程](https://www.runoob.com/cprogramming/c-file-io.html)
