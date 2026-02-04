@@ -8,3 +8,14 @@ data: 2026-02-04
 
 
 
+### 一个例子
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [x, y](int a, int b)->float {
+		return x * y + a * b;
+		};
+	cout << p(10, 20);
+}
+```
