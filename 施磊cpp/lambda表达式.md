@@ -154,3 +154,19 @@ int main() {
 }
 ```
 
+
+
+### 引用捕获容易出现的错误
+```cpp
+auto createLambda() {
+	float x = 1.0;
+	float y = 2.0;
+	return [&](float a) {return a * x + y; };
+}
+
+int main(void) {
+	auto f = createLambda();
+	cout << f(2.0) << endl;
+}
+```
+- x和y是createLambda函数里的局部变量，当函数返回时，这些变量的声明周期jie
