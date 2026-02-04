@@ -19,3 +19,20 @@ int main() {
 	cout << p(10, 20);
 }
 ```
+
+- 上面的这个lambda表达式换成函数对象的写法之后实际上就是下面这个样子
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+
+	struct {
+		int _x;
+		float _y;
+		float operator()(int a, int b)const {
+			return _x * _y + a * b;
+		}
+	}p{ x,y };
+}
+```
+
