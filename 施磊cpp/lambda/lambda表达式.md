@@ -189,7 +189,57 @@ int main(void) {
 
 ### 用[this],[* this]访问类中的成员
 >[this] 
->/*按引用捕获*/
+>/按引用捕获/
 
->[*this] 
->/*按值捕获*/
+>[* this]
+>/按值捕获
+
+
+
+eg:[this]
+```cpp
+#include<iostream>
+using namespace std;
+class DemoClass {
+private:
+	int m_id;
+public:
+	DemoClass(int id):m_id(id){}
+	void print() {
+		[this](){
+			m_id++;
+			cout << "id = " << m_id << "\n";
+			}();
+	}
+};
+
+int main() {
+	DemoClass demo(100);
+	demo.print();
+}
+```
+
+
+eg:[* this]
+```cpp
+#include<iostream>
+using namespace std;
+class DemoClass {
+private:
+	int m_id;
+public:
+	DemoClass(int id):m_id(id){}
+	void print() {
+		[*this]()mutable {//111
+			m_id++;//222
+			cout << "id = " << m_id << "\n";
+			}();
+	}
+};
+
+int main() {
+	DemoClass demo(100);
+	demo.print();
+}
+```
+- 如果没有//111 处的mutable，那么//222 处的m_id++就是错误的
