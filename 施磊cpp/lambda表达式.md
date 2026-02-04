@@ -100,3 +100,56 @@ int main() {
 
 ### 默认捕获方式
 
+>//默认按值捕获
+>[=]
+
+>//默认引用捕获
+>[&]
+
+
+eg:默认按值捕获
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [=](int a, int b)->float {
+		return x * y + a * b;
+		};
+}
+```
+
+
+eg:默认引用捕获
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [&](int a, int b)->float {
+		return x * y + a * b;
+		};
+}
+```
+
+
+eg:f
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [=,&y](int a, int b)->float {
+		return x * y + a * b;
+		};
+	cout << p(10, 20);
+}
+```
+
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [&,x](int a, int b)->float {
+		return x * y + a * b;
+		};
+	cout << p(10, 20);
+}
+```
