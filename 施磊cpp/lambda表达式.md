@@ -36,3 +36,38 @@ int main() {
 }
 ```
 
+### 捕获方式
+
+###### 按值捕获
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [x, y](int a, int b)->float {
+		return x * y + a * b;
+		};
+	cout << p(10, 20) << endl;
+	y += 1, 5;//111
+	cout << p(10, 20) << endl;
+}
+```
+> 输出
+> 221
+> 221
+
+- //111  处虽然修改了y的值，但是
+
+
+```
+
+- 引用捕获
+```cpp
+int main() {
+	int x = 7;
+	float y = 3.0;
+	auto p = [&x,&y](int a, int b)->float {
+		return x * y + a * b;
+		};
+	cout << p(10, 20);
+}
+```
