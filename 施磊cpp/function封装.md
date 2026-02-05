@@ -4,7 +4,7 @@ data: 2026-02-05
 
 
 
-### 一个例子
+### 封装函数
 ```cpp
 #include<iostream>
 #include<functional>
@@ -18,4 +18,10 @@ int main() {
 	cout << res << endl;
 	return 0;
 }
+```
+- `function<double(double,double)>`     第一个double是函数的返回值，第二、三个double是函数参数列表中的东西
+
+### 封装类的成员函数
+```cpp
+
 ```
