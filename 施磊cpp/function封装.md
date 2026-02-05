@@ -21,7 +21,7 @@ int main() {
 ```
 - `function<double(double,double)>`     第一个double是函数的返回值，第二、三个double是函数参数列表中的东西
 
-### 封装类的成员函数
+### 封装类的成员函数/变量
 ```cpp
 #include<iostream>
 #include<functional>
@@ -42,4 +42,4 @@ int main() {
 }
 ```
 
-- 在这个例子里，//111 处封装的是里
+- 在这个例子里，//111 处封装的类里面的`float f(float x) { return k_ * x + b_; };`    在参数列表那一部分，他第一个参数是==`Linear&`==    。//333 处，封装类里面的成员变量k_时，本来应该是`function< float >k`  ，但是是类里面的，因此要变成`function<float(Linear&)>`   
