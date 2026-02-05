@@ -42,4 +42,9 @@ int main() {
 }
 ```
 
-- 在这个例子里，//111 处封装的类里面的`float f(float x) { return k_ * x + b_; };`    在参数列表那一部分，他第一个参数是==`Linear&`==    。//333 处，封装类里面的成员变量k_时，本来应该是`function< float >k`  ，但是是类里面的，因此要变成`function<float(Linear&)>`   
+- 在这个例子里，//111 处封装的类里面的`float f(float x) { return k_ * x + b_; };`    在参数列表那一部分，他第一个参数是==`Linear&`==    。//333 处，封装类里面的成员变量k_时，本来应该是`function<float>k`  ，但是是类里面的，因此要变成`function<float(Linear&)>k`   
+
+
+
+### 类型擦除模式
+- 类型擦除模式：通过`std::function`可以把完全不同的类型，按照同一个接口，也就是函数签名，统一封装成一个类型来使用
