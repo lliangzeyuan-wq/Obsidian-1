@@ -48,3 +48,29 @@ int main() {
 
 ### 类型擦除模式
 - 类型擦除模式：通过`std::function`可以把完全不同的类型，按照同一个接口，也就是函数签名，统一封装成一个类型来使用
+```cpp
+#include<iostream>
+#include<functional>
+#include<map>
+using namespace std;
+float add(float a, float b) {
+	return a + b;
+}
+struct Substract {
+	float operator()(float a, float b) {
+		return a - b;
+	}
+};
+
+int main() {
+	map<char, function<double(double, double)>>calculator{
+		{'+',add},
+		{'-',Substract()},
+		{'*',[](double a,double b)->double {return a * b; }}
+	};
+
+	cout << calculator['+'](12.0,13) << endl;
+	cout << calculator['-'](13.0, 6.2) << endl;
+	cout<< calculator['*'](2.3, 3.2) << endl;
+}
+```
