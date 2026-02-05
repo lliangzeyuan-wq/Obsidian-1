@@ -23,5 +23,23 @@ int main() {
 
 ### 封装类的成员函数
 ```cpp
-
+#include<iostream>
+#include<functional>
+using namespace std;
+struct Linear {
+	Linear(float k,float b):k_(k),b_(b){}
+	float f(float x) { return k_ * x + b_; };
+	float k_, b_;
+};
+int main() {
+	function<float(Linear&,float)>mf = &Linear::f;//111
+	Linear L(1.2, 2.3);//222
+	float res = mf(L, 5);
+	cout << res << endl;
+	function<float(Linear&)> k = &Linear::k_;//333
+	cout << k(L) << endl;
+	return 0;
+}
 ```
+
+- 在这个例子里，//111 处封装的是里
