@@ -10,10 +10,10 @@ AVL树    BST树+节点平衡操作（节点平衡：任意节点左右子树的
 ![[Pasted image 20260206113259.png]]
 - 左旋转：右子树太高
 ![[Pasted image 20260206113331.png]]
-- 先以根节点的左孩子为轴做左旋转，再以根节点为轴做右旋转：左孩子的右子树太高了
+- 左平衡（先以根节点的左孩子为轴做左旋转，再以根节点为轴做右旋转）：左孩子的右子树太高了
 ![[Pasted image 20260206113657.png]]
 
-- 先以根节点的右孩子为轴做右旋转，再以根节点为轴做左旋转：右孩子的左子树太高了
+- 右平衡（先以根节点的右孩子为轴做右旋转，再以根节点为轴做左旋转）右孩子的左子树太高了
 ![[Pasted image 20260206113745.png]]
 
 ### 代码
@@ -39,7 +39,7 @@ private:
 ```
 
 #### 返回节点的高度值
-- 当为NULL的时候，
+- 当为NULL的时候，高度返回0
 ```cpp
 private:
 	//返回节点的高度值
@@ -48,3 +48,49 @@ private:
 		return node == NULL ? 0 : node->height_;
 	}
 ```
+#### 右旋转
+```cpp
+private:
+	//右旋转操作 以参数node为轴做右旋转操作，并把新的根节点返回
+	Node* rightRotate(Node* node)
+	{
+		Node* child = node->left_;
+		node->left_ = child->right_;
+		child->right_ = node;
+		//高度更新
+		node->height_ = max(height(node->left_),height(node->right_) + 1;//node节点现在是child的右孩子，因此要先求
+		child->height_ = max(height(child->left_), height(node->right_)) + 1;
+		//返回旋转后的子树新的根节点
+		return child;
+	}
+```
+
+#### 左旋转
+```cpp
+private:
+	//左旋转操作 以参数node为轴做左 旋转操作，并把新的根节点返回
+	Node* leftRotate(Node* node)
+	{
+		Node* child = node->left_;
+		node->right_ = child->left_;
+		child->left_ = node;
+		//高度更新
+		node->height_ = max(height(node->left_), height(node->right_)) + 1;
+		child->height_ = max(height(child->left_), height(node->right_)) + 1;
+		//返回旋转后的子树新的根节点
+		return child;
+	}
+```
+
+#### 左平衡：左孩子的右子树太高了
+```cpp
+private:
+	//左平衡操作 以参数node为轴做左-右旋转操作，并把新的根节点返回
+	Node* leftBalance(Node* node)
+	{
+		node->left_ = leftRotate(node->left_);
+		return rightRotate(node);
+	}
+```
+
+#### 右平衡：you
