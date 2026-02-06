@@ -89,4 +89,19 @@ private:
 ![[Pasted image 20260206230417.png]]
 #### 2
 ![[Pasted image 20260206230440.png]]
-####
+#### 失衡3
+![[Pasted image 20260206230505.png]]
+#### 3
+![[Pasted image 20260206230531.png]]
+#### 失衡4
+![[Pasted image 20260206230550.png]]
+#### 4
+![[Pasted image 20260206230604.png]]
+#### 失衡5
+![[Pasted image 20260206230625.png]]
+#### 5
+![[Pasted image 20260206230636.png]]
+#### 失衡6
+![[Pasted image 20260206230659.png]]
+#### 6
+![[Pasted image 20260206230709.png]]
