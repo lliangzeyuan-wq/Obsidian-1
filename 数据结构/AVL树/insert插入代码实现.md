@@ -1,6 +1,7 @@
 ---
 data: 2026-02-06
 ---
+[3AVL树insert插入代码实现_ev_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.videopod.episodes&vd_source=43c9de78f6e5f2b05790188e274ad943&p=121)
 ### 非AVL树的一般BSTree的插入代码
 ```cpp
 public:
@@ -27,7 +28,7 @@ private:
 ```
 
 ### AVL树的insert插入代码实现
-
+- 注释很详细，看注释
 ```cpp
 	//AVL树的插入操作实现
 	Node* insert(Node* node, const T& val) {
@@ -75,3 +76,17 @@ private:
 ```
 
 
+
+### 过程可视化
+
+- 插入1 2 3 4 5 6 7 8 9 10
+#### 失衡1
+![[Pasted image 20260206230318.png]]
+#### 1
+![[Pasted image 20260206230327.png]]
+
+#### 失衡2
+![[Pasted image 20260206230417.png]]
+#### 2
+![[Pasted image 20260206230440.png]]
+####
