@@ -93,4 +93,13 @@ private:
 	}
 ```
 
-#### 右平衡：you
+#### 右平衡：右孩子的左子树太高了
+```cpp
+private:
+	//右平衡操作 以参数node为轴做右-左旋转操作，并把新的根节点返回
+	Node* rightBalance(Node* node)
+	{
+		node->right_ = rightRotate(node->left_);
+		return leftRotate(node);
+	}
+```
