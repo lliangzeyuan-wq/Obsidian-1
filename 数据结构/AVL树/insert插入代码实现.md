@@ -30,6 +30,12 @@ private:
 ### AVL树的insert插入代码实现
 - 注释很详细，看注释
 ```cpp
+public:
+	//AVL树的插入操作
+	void insert(const T& val) {
+		root_ = insert(root_, val);
+	}
+private:
 	//AVL树的插入操作实现
 	Node* insert(Node* node, const T& val) {
 		if (node == NULL) {
@@ -39,7 +45,7 @@ private:
 			;//找到相同元素了，不用再往下递归找位置插入了，已经有了
 		}
 		else if (node->data_ > val) {
-			insert(node->left_, val);
+			node->left_ = insert(node->left_, val);
 			//添加1   在递归回溯时判断节点是否失衡
 			if (height(node->left_) - height(node->right_) > 1) {//前提：一定是平衡树。往左插，则失衡的时候一定是左边高
 				//因为是失衡的情况，因此node->left_一定不为空
@@ -54,7 +60,7 @@ private:
 			}
 		}
 		else {
-			insert(node->right_, val);
+			node->right_ = insert(node->right_, val);
 			//添加2   在递归回溯时判断节点是否失衡
 			if (height(node->right_) - height(node->left_) > 1) {//前提：一定是平衡树。往左插，则失衡的时候一定是左边高
 				//因为是失衡的情况，因此node->right_一定不为空
