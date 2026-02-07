@@ -2,7 +2,7 @@
 data: 2026-02-07
 ---
 [1红黑树性质以及和AVL树的应用场景_ev_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.videopod.episodes&vd_source=43c9de78f6e5f2b05790188e274ad943&p=123)
-![[Pasted image 20260207233420.png]]
+![[Pasted image 20260207234423.png]]
 # 红黑树的五个性质：
 
 1. 每一个节点都是有颜色的，不是黑色，就是红色
