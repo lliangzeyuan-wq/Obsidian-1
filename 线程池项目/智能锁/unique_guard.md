@@ -52,5 +52,12 @@ int main() {
 ```cpp
 std::mutex mtx;
 std::unique_lock<std::mutex> lk1(mtx);//自动锁，和lock_guard的作用一样
-std::unique_lock<std::mutex> lk1(mtx,std::defet_lock);//延迟锁定，
+std::unique_lock<std::mutex> lk1(mtx,std::defet_lock);//需要自己手动的上锁，解锁
+std::unique_lock<std::mutex> lk1(mtx,std::try_to_lock);//尝试上锁
+std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 ```
+##### std::unique_lock 提供了一些成员函数，用于管理锁的状态：
+- **lock()** ：锁定关联的 mutex。
+- **unlock()**：解锁关联的 mutex。
+- **try_lock()**：尝试锁定mutex，如果锁定成功，返回true，否则返回false。
+- **owns_lock()**：返回一个布尔值，指示 unique_lock  是否拥有 mutex 的所用
