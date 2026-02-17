@@ -46,3 +46,11 @@ int main() {
 }
  ```
 - 注意sum函数下面的lock_guard，他如果想要只对第一个for循环上锁，需要加上一个大括号来限定他的作用范围。说明他不能自由的指定解锁的范围
+
+### unique_lock
+#### unique_lock的构造
+```cpp
+std::mutex mtx;
+std::unique_lock<std::mutex> lk1(mtx);//自动锁，和lock_guard的作用一样
+std::unique_lock<std::mutex> lk1(mtx,std::defet_lock);//延迟锁定，
+```
