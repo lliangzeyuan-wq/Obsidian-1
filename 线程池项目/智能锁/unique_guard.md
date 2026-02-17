@@ -52,7 +52,7 @@ int main() {
 ```cpp
 std::mutex mtx;
 std::unique_lock<std::mutex> lk1(mtx);//自动锁，和lock_guard的作用一样
-std::unique_lock<std::mutex> lk1(mtx,std::defet_lock);//需要自己手动的上锁，解锁
+std::unique_lock<std::mutex> lk1(mtx,std::defer_lock);//需要自己手动的上锁，解锁
 std::unique_lock<std::mutex> lk1(mtx,std::try_to_lock);//尝试上锁
 std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 ```
@@ -61,3 +61,31 @@ std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 - **unlock()**：解锁关联的 mutex。
 - **try_lock()**：尝试锁定mutex，如果锁定成功，返回true，否则返回false。
 - **owns_lock()**：返回一个布尔值，指示 unique_lock  是否拥有 mutex 的所用权。
+
+
+
+#### defer_lock
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+int count = 0;
+void example_defer_lock() {
+    std::unique_lock<std::mutex>lock(mtx, std::defer_lock);//不会立即锁定，需要手动上锁
+    lock.lock();//和mtx.lock(); 的作用一样，需要手动的上锁和解锁
+    for (size_t i = 0; i <100000; i++)
+    {
+        count++;
+    }
+    lock.unlock();
+}
+int main() {
+    std::thread t1(example_defer_lock);
+    std::thread t2(example_defer_lock);
+    t1.join();
+    t2.join();
+    std::cout << count << std::endl;
+    return 0;
+}
+```
