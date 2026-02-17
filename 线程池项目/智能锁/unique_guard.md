@@ -116,3 +116,24 @@ int main() {
 ```
 
 
+- 下面的代码显示的是锁上了
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+void example_try_to_lock() { 
+    std::unique_lock<std::mutex>lock(mtx, std::try_to_lock);//尝试锁定
+    if (lock.owns_lock()) {
+        std::cout << "锁上了" << std::endl;
+    }
+    else {
+        std::cout << "没锁上" << std::endl;
+    }   
+}
+int main() {
+    std::thread t1(example_try_to_lock);
+    t1.join();
+    return 0;
+}
+```
