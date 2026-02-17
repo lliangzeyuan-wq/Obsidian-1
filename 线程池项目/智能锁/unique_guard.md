@@ -52,7 +52,7 @@ int main() {
 ```cpp
 std::mutex mtx;
 std::unique_lock<std::mutex> lk1(mtx);//自动锁，和lock_guard的作用一样
-std::unique_lock<std::mutex> lk1(mtx,std::defer_lock);//需要自己手动的上锁，解锁
+std::unique_lock<std::mutex> lk1(mtx,std::defer_lock);//需要自己手动的上锁，但他会自动在他声明周期结束的时候解锁，ye'ke
 std::unique_lock<std::mutex> lk1(mtx,std::try_to_lock);//尝试上锁
 std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 ```
