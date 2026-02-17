@@ -34,3 +34,32 @@ int main() {
 	return 0;
 }
 ```
+
+- 使用lock_guard的代码
+```cpp
+#include<iostream>
+#include<thread>
+#include<vector>
+#include<mutex>
+using namespace std;
+mutex mymutex;
+int mycount = 0;
+void sum() {
+	lock_guard<mutex>lg(mymutex);//我保护的是mutex类型的锁，他保护的对象是mymutex
+	for (size_t i = 0; i < 10000; i++) {
+		mycount++;
+	}
+}
+int main() {
+	vector<thread>mybox;
+	for (size_t i = 0; i < 10; i++)
+	{
+		mybox.emplace_back(sum);
+	}    
+	for (thread& t : mybox) {  
+		t.join();
+	}
+	cout << mycount << endl;
+	return 0;
+}
+```
