@@ -137,3 +137,68 @@ int main() {
     return 0;
 }
 ```
+
+
+#### adopt_lock
+
+
+- 已经接管了，你还要去用mtx解锁，报错
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+int count = 0;
+void example_adopt_lock() {
+    mtx.lock();
+    std::unique_lock<std::mutex>lock(mtx, std::adopt_lock);//不会立即锁定，需要手动上锁
+    std::cout << "ajdfjasdfp" << std::endl;
+    mtx.unlock();
+}
+int main() {
+    std::thread t1(example_adopt_lock);
+    t1.join();
+    return 0;
+}
+```
+
+
+
+- 没有接管的对象，报错
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+int count = 0;
+void example_adopt_lock() {
+    std::unique_lock<std::mutex>lock(mtx, std::adopt_lock);//不会立即锁定，需要手动上锁
+    std::cout << "ajdfjasdfp" << std::endl;
+}
+int main() {
+    std::thread t1(example_adopt_lock);
+    t1.join();
+    return 0;
+}
+```
+
+
+
+- 正确代码
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+int count = 0;
+void example_adopt_lock() {
+    mtx.lock();
+    std::unique_lock<std::mutex>lock(mtx, std::adopt_lock);//不会立即锁定，需要手动上锁
+    std::cout << "ajdfjasdfp" << std::endl;
+}
+int main() {
+    std::thread t1(example_adopt_lock);
+    t1.join();
+    return 0;
+}
+```
