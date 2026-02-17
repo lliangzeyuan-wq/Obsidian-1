@@ -89,3 +89,30 @@ int main() {
     return 0;
 }
 ```
+
+#### try_to_lock
+- 当unique_lock 尝试去锁的时候，mtx已经上锁了，因此检测的没有上锁
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+std::mutex mtx;
+void example_try_to_lock() {
+    mtx.lock(); 
+    std::unique_lock<std::mutex>lock(mtx, std::try_to_lock);//尝试锁定
+    if (lock.owns_lock()) {
+        std::cout << "锁上了" << std::endl;
+    }
+    else {
+        std::cout << "没锁上" << std::endl;
+    }   
+    mtx.unlock();
+}
+int main() {
+    std::thread t1(example_try_to_lock);
+    t1.join();
+    return 0;
+}
+```
+
+
