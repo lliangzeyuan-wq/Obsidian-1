@@ -61,7 +61,7 @@ std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 - **unlock()**：解锁关联的 mutex。
 - **try_lock()**：尝试锁定mutex，如果锁定成功，返回true，否则返回false。
 - **owns_lock()**：返回一个布尔值，指示 unique_lock  是否拥有 mutex 的所用权。
-- **try_lock_for(conxt std::chrono::duration<Rap,Preiod>& rel_time)**：尝试对互斥量进行加锁操作，如果当前互斥量已经被其他线程持有，则当前线程会被阻塞，直到互斥量被成功加锁，或者超过了了指定的时间。[[]]
+- **try_lock_for(conxt std::chrono::duration<Rap,Preiod>& rel_time)**：尝试对互斥量进行加锁操作，如果当前互斥量已经被其他线程持有，则当前线程会被阻塞，直到互斥量被成功加锁，或者超过了了指定的时间。
 
 
 
@@ -206,7 +206,7 @@ int main() {
 
 
 
-#### 成员函数try_lock_for
+## try_lock_for代码示例
 - 
 ```cpp
 #include <iostream>
