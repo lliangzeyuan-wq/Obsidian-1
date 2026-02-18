@@ -61,6 +61,7 @@ std::unique_lock<std::mutex> lk1(mtx,std::adopt_lock);//接管已经上的锁
 - **unlock()**：解锁关联的 mutex。
 - **try_lock()**：尝试锁定mutex，如果锁定成功，返回true，否则返回false。
 - **owns_lock()**：返回一个布尔值，指示 unique_lock  是否拥有 mutex 的所用权。
+- **try_
 
 
 
