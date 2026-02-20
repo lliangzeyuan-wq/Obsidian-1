@@ -17,12 +17,31 @@ data: 2026-02-20
     
     > 由此可见，线程间的通信是必不可免的。
     
-3. `wait(unique_lock<mutex>& lock, function<bool()> pred)`：等待一个条件，直到 `pred` 返回 `true`。
+2. `wait(unique_lock<mutex>& lock, function<bool()> pred)`：等待一个条件，==直到== `pred` 返回 `true`。（条件为真醒来，条件为假睡眠（等待））
     
     > wait: 即一直等待，直到predict条件成立
+    - wait作用的原理是解开锁，然后线程到睡眠状态，直到有人用`notify`把他唤醒，
     
 
 ### 代码例子
+- `std::condition_variable cv;//111` 创建条件变量
+
+- ```cpp
+  		//while (q.size() > QUEUE_THRESHHOLD) {
+		//	cv.wait(lock);
+		//}
+		//等价写法
+		cv.wait(lock, [&]()->bool {return q.size() <= QUEUE_THRESHHOLD; });//333
+  ```
+
+- ```cpp
+  //while (q.empty()) {
+		//	cv.wait(lock);
+		//}
+		//等价写法
+		cv.wait(lock, [&]()->bool {return !q.empty(); });//444
+  ```
+
 ```cpp
 #include<iostream>
 #include<thread>
@@ -56,7 +75,7 @@ public:
 		//	cv.wait(lock);
 		//}
 		//等价写法
-		cv.wait(lock, [&]()->bool {return !q.empty(); });
+		cv.wait(lock, [&]()->bool {return !q.empty(); });//444
 		
 		
 		int val = q.front();
