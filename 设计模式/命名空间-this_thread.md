@@ -59,3 +59,64 @@ sleep_until()：指定线程阻塞到某一个指定的时间点time_point类型
 sleep_for()：指定线程阻塞一定的时间长度duration 类型，之后解除阻塞
 
 
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+using namespace std;
+
+void func()
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        // 获取当前系统时间点
+        auto now = chrono::system_clock::now();
+        // 时间间隔为2s
+        chrono::seconds sec(2);
+        // 当前时间点之后休眠两秒
+        this_thread::sleep_until(now + sec);
+        cout << "子线程: " << this_thread::get_id() << ", i = " << i << endl;
+    }
+}
+
+int main()
+{
+    thread t(func);
+    t.join();
+}
+```
+sleep_until()和sleep_for()函数的功能是一样的，只不过前者是基于时间点去阻塞线程，后者是基于时间段去阻塞线程，项目开发过程中根据实际情况选择最优的解决方案即可。
+
+
+
+# 4. yield()
+命名空间this_thread中提供了一个非常绅士的函数yield()，在线程中调用这个函数之后，处于运行态的线程会主动让出自己已经抢到的CPU时间片，最终变为就绪态，这样其它的线程就有更大的概率能够抢到CPU时间片了。使用这个函数的时候需要注意一点，线程调用了yield()之后会主动放弃CPU资源，但是这个变为就绪态的线程会马上参与到下一轮CPU的抢夺战中，不排除它能继续抢到CPU时间片的情况，这是概率问题。
+
+
+```cpp
+#include <iostream>
+#include <thread>
+using namespace std;
+
+void func()
+{
+    for (int i = 0; i < 100000000000; ++i)
+    {
+        cout << "子线程: " << this_thread::get_id() << ", i = " << i << endl;
+        this_thread::yield();
+    }
+}
+
+int main()
+{
+    thread t(func);
+    thread t1(func);
+    t.join();
+    t1.join();
+}
+```
+在上面的程序中，执行func()中的for循环会占用大量的时间，在极端情况下，如果当前线程占用CPU资源不释放就会导致其他线程中的任务无法被处理，或者该线程每次都能抢到CPU时间片，导致其他线程中的任务没有机会被执行。解决方案就是每执行一次循环，让该线程主动放弃CPU资源，重新和其他线程再次抢夺CPU时间片，如果其他线程抢到了CPU时间片就可以执行相应的任务了。
+
+>结论：
+std::this_thread::yield() 的目的是避免一个线程长时间占用CPU资源，从而导致多线程处理性能下降
+std::this_thread::yield() 是让当前线程主动放弃了当前自己抢到的CPU资源，但是在下一轮还会继续抢
