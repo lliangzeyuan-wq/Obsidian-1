@@ -75,3 +75,44 @@ plaintext
 线程 5 初始化完成（实际可能未执行初始化）
 ```
 
+
+
+### 进阶用法：带参数的函数
+`call_once`支持给目标函数传参，示例如下：
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <string>
+
+std::once_flag flag;
+
+// 带参数的初始化函数
+void init_with_args(const std::string& msg, int num) {
+    std::cout << "带参数初始化：" << msg << "，数字：" << num << std::endl;
+}
+
+void worker(int id) {
+    std::call_once(flag, init_with_args, "初始化配置", 100);
+    std::cout << "工作线程 " << id << " 运行中" << std::endl;
+}
+
+int main() {
+    std::thread t1(worker, 1);
+    std::thread t2(worker, 2);
+    t1.join();
+    t2.join();
+    return 0;
+}
+```
+
+#### 输出：
+
+plaintext
+
+```cpp
+带参数初始化：初始化配置，数字：100
+工作线程 1 运行中
+工作线程 2 运行中
+```
+
