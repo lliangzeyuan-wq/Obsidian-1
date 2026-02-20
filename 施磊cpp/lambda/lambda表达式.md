@@ -196,7 +196,7 @@ int main(void) {
 
 
 
-eg:[this]
+eg:[this]  /按引用捕获/
 ```cpp
 #include<iostream>
 using namespace std;
@@ -220,7 +220,7 @@ int main() {
 ```
 
 
-eg:[* this]
+eg:[* this]  /按值捕获
 ```cpp
 #include<iostream>
 using namespace std;
