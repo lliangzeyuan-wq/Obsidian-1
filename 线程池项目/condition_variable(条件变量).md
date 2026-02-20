@@ -24,8 +24,9 @@ data: 2026-02-20
     
 
 ### 代码例子
+1.
 - `std::condition_variable cv;//111` 创建条件变量
-
+2.
 - ```cpp
   		//while (q.size() > QUEUE_THRESHHOLD) {
 		//	cv.wait(lock);
@@ -33,7 +34,7 @@ data: 2026-02-20
 		//等价写法
 		cv.wait(lock, [&]()->bool {return q.size() <= QUEUE_THRESHHOLD; });//333
   ```
-
+3.
 - ```cpp
   //while (q.empty()) {
 		//	cv.wait(lock);
@@ -41,6 +42,8 @@ data: 2026-02-20
 		//等价写法
 		cv.wait(lock, [&]()->bool {return !q.empty(); });//444
   ```
+4.
+- 这段代码讲解，生产只要1ms，而消费要100ms。当生产了10个的时候，停止生产，等待消费者消费，消费者每消费一个都会尝试唤醒all线程，此时生产者被唤醒，又会继续工作。
 
 ```cpp
 #include<iostream>
@@ -109,3 +112,5 @@ int main() {
 	t2.join();
 }
 ```
+5
+- 如果设为生产这时间长，消费者时间短，
