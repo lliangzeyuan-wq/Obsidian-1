@@ -70,4 +70,4 @@ int main() {
 	cout << calculator['-'](13.0, 6.2) << endl;
 	cout<< calculator['*'](2.3, 3.2) << endl;
 }
-```
+```  
