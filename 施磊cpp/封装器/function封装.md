@@ -1,9 +1,6 @@
 ---
 data: 2026-02-05
 ---
-
-
-
 ### 封装函数
 ```cpp
 #include<iostream>
