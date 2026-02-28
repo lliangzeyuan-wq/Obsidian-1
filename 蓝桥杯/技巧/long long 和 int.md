@@ -1,6 +1,9 @@
 ---
 data: 2026-02-28
 ---
+**int最大：2e9
+**long long 最大：9e18
+
 我给你做一份**蓝桥杯专用、最简单、最实用**的笔记！
 
 你背会这个，比赛里**99% 不会错、不会溢出、不会爆数据**！
@@ -82,7 +85,7 @@ cpp
 运行
 
 ```cpp
-#define int long long
+#define ll long long
 ```
 
 写在 main 上面，**全场不用考虑溢出**！
@@ -124,7 +127,7 @@ cpp
 
 
 ```cpp
-#define int long long
+#define ll long long
 ```
 
 加在代码最前面，全程不溢出！
