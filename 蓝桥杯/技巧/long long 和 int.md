@@ -20,13 +20,7 @@ data: 2026-02-28
 3. 输入的数字本身不大（≤ 1e8）
 4. 计数、长度、大小
 
-例子：
-
-cpp
-
-运行
-
-```
+```cpp
 int n;
 int a[100005];
 int cnt[500005];
@@ -47,13 +41,8 @@ for (int i=0; i<n; i++) { ... }
 6. 模运算相关的所有值
 7. 超过 int 范围的数
 
-例子：
 
-cpp
-
-运行
-
-```
+```cpp
 long long fac[500005];
 long long inv_fac[500005];
 long long ans = 0;
@@ -71,11 +60,7 @@ long long pow(...) { ... }
 
 你看你这道题：
 
-cpp
-
-运行
-
-```
+```cpp
 fac[i] = fac[i-1] * i % mod;
 ```
 
@@ -96,7 +81,7 @@ cpp
 
 运行
 
-```
+```cpp
 #define int long long
 ```
 
