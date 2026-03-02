@@ -243,3 +243,96 @@ int main() {
 }
 ```
 - 如果没有//111 处的mutable，那么//222 处的m_id++就是错误的
+
+
+
+---
+
+### 返回类型的省略
+
+**何时不需要写`->返回类型`
+- 只有一条语句
+
+**合适要写**
+#### 例子 1：多条语句，必须显式声明
+
+这是最标准的场景。当 lambda 函数体中有**两条及以上语句**（比如加了打印、计算中间值），编译器无法自动推导，**必须**写 `-> 返回类型`。
+
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<pair<int, int>> v = {{3, 1}, {1, 4}, {2, 2}};
+
+    // 需求：排序时打印比较过程（多条语句）
+    sort(v.begin(), v.end(), [](const pair<int, int>& a, const pair<int, int>& b) -> bool {
+        // 语句1：打印日志（竞赛中调试常用）
+        cout << "比较: " << a.second << " 和 " << b.second << endl;
+        // 语句2：返回比较结果
+        return a.second < b.second;
+    });
+
+    return 0;
+}
+```
+
+**关键点**：如果去掉 `-> bool`，这段代码会直接编译报错。
+
+#### 例子 2：分支结构，返回类型不一致（隐式陷阱）
+
+即使只有一条 `return`，但在**条件判断**中，如果两个分支返回的类型看起来不一样（比如一个是 `int`，一个是 `bool`），也需要显式声明。
+
+
+```cpp
+// 需求：根据flag决定升序或降序，且返回值被隐式转换
+auto compare = [](int a, int b, bool asc) -> bool {
+    if (asc) {
+        return a < b; // 返回 bool
+    } else {
+        return 0;     // 返回 int，虽然能转成 bool，但编译器会迷茫
+    }
+};
+```
+
+**关键点**：为了代码的健壮性，在蓝桥杯写复杂比较器时，建议养成**直接写 `-> bool`** 的好习惯。
+
+
+### 例子 3：捕获外部变量 + 复杂逻辑（竞赛实战）
+
+在蓝桥杯的**贪心算法**或**动态规划**中，经常需要 lambda 捕获外部的数组或变量来进行复杂比较。
+
+
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> nums = {5, 3, 8, 1};
+    vector<int> weight = {2, 5, 1, 3}; // 外部权重数组
+
+    // 需求：按照 (数值 * 权重) 的结果降序排序
+    sort(nums.begin(), nums.end(), [&](int a, int b) -> bool {
+        // 先通过数值找到对应的权重（这是一个复杂的查找过程）
+        auto find_w = [&](int x) {
+            for (int i = 0; i < nums.size(); i++) {
+                if (nums[i] == x) return weight[i];
+            }
+            return 0;
+        };
+        // 计算最终得分并比较
+        int scoreA = a * find_w(a);
+        int scoreB = b * find_w(b);
+        return scoreA > scoreB; // 降序
+    });
+
+    return 0;
+}
+```
+
+**关键点**：这里 lambda 体内定义了另一个 lambda，还有循环和变量计算，必须显式声明 `-> bool` 才能通过编译。
