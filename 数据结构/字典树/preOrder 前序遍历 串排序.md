@@ -1,34 +1,48 @@
 ---
 data: 2026-03-03
 ---
-https://www.bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.videopod.episodes&vd_source=a1738e65b6790850448f77a5620aaa98&p=183
+https://www.bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.player.switch&vd_source=a1738e65b6790850448f77a5620aaa98&p=185
 
+- 每一个树的枝条都相当于一个单词，典型的空间换时间
+- Trie树处理串的应用：有比较多的公共前缀，效率高，否则内存占用量比较大
+- 结果的输出：按照字典序输出插入的单词,即实现了**串排序**
 ### 代码
 ```cpp
 public:
-	//添加单词     O(m),m为word.size()
-	void add(const string& word)
+	//前序遍历字典树
+	void preOrder()
 	{
-		TrieNode* cur = root_;
-		for (int i = 0; i < word.size(); ++i)
+		string word;
+		vector<string>wordList;
+		preOrder(root_, word, wordList);
+		for (auto word : wordList)
 		{
-			auto childIt = cur->nodeMap_.find(word[i]);
-			if (childIt == cur->nodeMap_.end())
-			{
-				//相应字符的节点没有，创建他
-				TrieNode* child = new TrieNode(word[i], 0);
-				cur->nodeMap_.emplace(word[i], child);
-				cur = child;
-			}
-			else
-			{
-				//相应的字符节点已经存在，移动cur指向对应的字符节点
-				cur = childIt->second;
-			}
-		}    
-		//cur指向了word单词的最后一个节点
-		cur->freqs_++;
+			cout << word << endl;
+		}
+		cout << endl;
 	}
+	
+	
+private:
+	void preOrder(TrieNode* cur, string word, vector<string>& wordList)
+	{
+		//前序遍历 VLR
+		if (cur != root_)//V
+		{
+			word.push_back(cur->ch_);
+			if (cur->freqs_ > 0)
+			{
+				//已经遍历到一个有效的单词
+				wordList.emplace_back(word);
+			}
+		}
+		//递归处理孩子节点
+		for (auto pair : cur->nodeMap_)
+		{
+			preOrder(pair.second, word, wordList);
+		}
+	}
+
 
 ```
 

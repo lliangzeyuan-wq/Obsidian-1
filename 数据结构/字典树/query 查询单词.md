@@ -1,50 +1,30 @@
 ---
 data: 2026-03-03
 ---
-https://www.bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.player.switch&vd_source=a1738e65b6790850448f77a5620aaa98&p=185
+bilibili.com/video/BV1FT421k7LL?spm_id_from=333.788.videopod.episodes&vd_source=a1738e65b6790850448f77a5620aaa98&p=183
 
-- 每一个树的枝条都相当于一个单词，典型的空间换时间
-- Trie树处理串的应用：有比较多的公共前缀，效率高，否则内存占用量比较大
-- 结果的输出：按照字典序输出插入的单词
 ### 代码
 ```cpp
 public:
-	//前序遍历字典树
-	void preOrder()
+	//查询单词       O(m),m为word.size()
+	int query(const string& word)
 	{
-		string word;
-		vector<string>wordList;
-		preOrder(root_, word, wordList);
-		for (auto word : wordList)
+		TrieNode* cur = root_;
+		for (int i = 0; i < word.size(); ++i)
 		{
-			cout << word << endl;
-		}
-		cout << endl;
-	}
-	
-	
-private:
-	void preOrder(TrieNode* cur, string word, vector<string>& wordList)
-	{
-		//前序遍历 VLR
-		if (cur != root_)//V
-		{
-			word.push_back(cur->ch_);
-			if (cur->freqs_ > 0)
+			auto childIt = cur->nodeMap_.find(word[i]);
+			if (childIt == cur->nodeMap_.end())
 			{
-				//已经遍历到一个有效的单词
-				wordList.emplace_back(word);
+				return 0;
 			}
+			//移动cur指向下一个单词的字符节点上
+			cur = childIt->second;
 		}
-		//递归处理孩子节点
-		for (auto pair : cur->nodeMap_)
-		{
-			preOrder(pair.second, word, wordList);
-		}
+		return cur->freqs_;  
 	}
-
 
 ```
+
 
 ### 完整代码
 ```cpp
