@@ -20,15 +20,15 @@ basic_string substr(size_t pos = 0, size_t count = npos) const;
 
 ### 常见用法
 
-cpp
 
-运行
 
-```
+```cpp
 std::string s = "Hello, World!";
 std::string sub1 = s.substr(7);      // 从索引7开始到末尾，结果为 "World!"
 std::string sub2 = s.substr(0, 5);   // 从索引0开始提取5个字符，结果为 "Hello"
 ```
+
+- 这里索引0也算在了计数的范围里了
 
 ### 结合你代码中的例子
 
