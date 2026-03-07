@@ -24,7 +24,7 @@ int main() {
 
 
 
-### 成员函数
+### 类成员函数
 ```cpp
 #include <iostream>
 
@@ -59,6 +59,38 @@ int main() {
     int sum = (m.*f)(1, 2);
 
     cout << sum << endl;
+
+    return 0;
+
+}
+```
+
+
+
+### 静态类成员函数
+- 除了//111处和普通函数不一样外，其他的地方和普通函数一样
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    static int add(int x, int y) { return x + y; }
+
+};
+
+typedef int(*FUNC2)(int, int);
+
+int main() {
+
+    FUNC2 f = &MyMath::add;//111
+
+    cout << f(2, 3) << endl;
 
     return 0;
 
