@@ -21,3 +21,46 @@ int main() {
     return 0;
 }
 ```
+
+
+
+### 成员函数
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    int add(int x, int y) { return x + y; }
+
+};
+
+  
+
+typedef int(MyMath::* FUNC1)(int, int);
+
+// //c++11
+
+// using FUNC1 = int(MyMath::*)(int, int);
+
+  
+
+int main() {
+
+    FUNC1 f = &MyMath::add;
+
+    MyMath m;
+
+    int sum = (m.*f)(1, 2);
+
+    cout << sum << endl;
+
+    return 0;
+
+}
+```
