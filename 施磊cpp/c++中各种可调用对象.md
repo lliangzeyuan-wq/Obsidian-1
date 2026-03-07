@@ -96,3 +96,32 @@ int main() {
 
 }
 ```
+
+
+### 仿函数
+- 仿函数的基本用法
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    int operator()(int x, int y) { return x + y; }
+
+};
+
+int main() {
+
+    MyMath m;
+
+    cout << m(1, 2) << endl;
+
+    return 0;
+
+}
+```
