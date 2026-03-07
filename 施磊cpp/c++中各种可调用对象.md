@@ -51,7 +51,7 @@ typedef int(MyMath::* FUNC1)(int, int);
   
 
 int main() {
-
+	//这里必须要加取地址符
     FUNC1 f = &MyMath::add;
 
     MyMath m;
@@ -87,7 +87,7 @@ public:
 typedef int(*FUNC2)(int, int);
 
 int main() {
-
+	//这里的取地址符可以省略
     FUNC2 f = &MyMath::add;//111
 
     cout << f(2, 3) << endl;
@@ -120,6 +120,41 @@ int main() {
     MyMath m;
 
     cout << m(1, 2) << endl;
+
+    return 0;
+
+}
+```
+
+- 仿函数的指针用法
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    int operator()(int x, int y) { return x + y; }
+
+};
+
+typedef int(MyMath::* FUNC)(int, int);
+
+// //c++11
+
+// using FUNC = int(MyMath::*)(int, int);
+
+int main() {
+
+    MyMath m;
+
+    FUNC f = &MyMath::operator();
+
+    cout << (m.*f)(-1, 3) << endl;
 
     return 0;
 
