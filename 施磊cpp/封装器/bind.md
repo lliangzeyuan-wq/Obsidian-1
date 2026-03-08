@@ -71,3 +71,65 @@ int main()
 
 }
 ```
+
+
+### bind绑定类成员函数
+```cpp
+#include <iostream>
+
+#include<functional>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    MyMath()
+
+    {
+
+        cout << "默认构造函数" << endl;
+
+    }
+
+    MyMath(const MyMath& math)
+
+    {
+
+        cout << "默认拷贝构造函数" << endl;
+
+    }
+
+    int add(int x, int y) { return x + y; };
+
+};
+
+// typedef int(MyMath::* FUNC)(int, int);
+
+using FUNC = int(MyMath::*)(int, int);
+
+int main() {
+
+    FUNC f = &MyMath::add;
+
+    MyMath m;//实例化一个对象
+
+    int sum = (m.*f)(1, 2);
+
+    cout << sum << endl;
+
+  
+
+    int a = 20;
+
+    function<int(int)>f1 = bind(&MyMath::add, m, placeholders::_1, a);
+
+    cout << f1(4) << endl;
+
+    return 0;
+
+}
+```
