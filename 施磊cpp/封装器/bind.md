@@ -133,3 +133,44 @@ int main() {
 
 }
 ```
+
+### 绑定类静态成员函数
+```cpp
+#include <iostream>
+
+#include<functional>
+
+using namespace std;
+
+class MyMath
+
+{
+
+public:
+
+    static int add(int x, int y)
+
+    {
+
+        return x + y;
+
+    }
+
+};
+
+typedef int (*FUNC)(int, int);
+
+int main() {
+
+    FUNC f = MyMath::add;
+
+    cout << f(1, 2) << endl;
+
+    function<int(int)>f1 = bind(MyMath::add, placeholders::_1, 2);
+
+    cout << f1(4) << endl;
+
+    return 0;
+
+}
+```
