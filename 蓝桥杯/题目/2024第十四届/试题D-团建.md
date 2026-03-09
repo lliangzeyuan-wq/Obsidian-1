@@ -19,9 +19,9 @@ void dfs(int pN,int faN,int pM,int faM,int dep)
 	{
 		if(sonN!=faN) bk[a[sonN]]=sonN;
 	} 
-	for(auto sonN:GN[pN])
+	for(auto sonM:GN[pM])
 	{  
-		if(sonN!=faN)
+		if(sonM!=faM)
 		{
 			if(bk.count(b[sonM]))
 			{
