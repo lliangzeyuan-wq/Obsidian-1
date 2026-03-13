@@ -13,6 +13,7 @@ data: 2026-03-13
 	![[Pasted image 20260313150351.png]]
 
 ### bind函数
-- 作用：
+- 作用：给socket绑定一个地址结构（ip+port）
 - 函数原型 : `int bind(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
+	- sockfd ：socket函数的返回值
 `
