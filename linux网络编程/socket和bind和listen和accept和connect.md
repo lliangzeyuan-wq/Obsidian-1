@@ -43,3 +43,8 @@ data: 2026-03-13
 	- addr：传出参数。传入一个空值，返回客户端的addr（包含地址结构：ip+port）
 	- addrlen: 传入传出参数。你要告诉内核addr结构体的最大长度，内核会修改成客户端地址实际占用的长度
 	- 返回值：能与客户端进行数据通讯的新的socket对应的文件描述符
+
+
+### 客户端connect函数
+- 头文件：常客，`#include<sys/socket.h>`
+- 函数原型：` int connect(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
