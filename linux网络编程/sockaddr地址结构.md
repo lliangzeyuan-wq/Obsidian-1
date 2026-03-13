@@ -24,12 +24,13 @@ data: 2026-03-13
 struct sockaddr_in addr;
 addr.sin_family = AF_INET/AF_INET6;
 addr.sin_port = htons(9526);
-int dst;
+/*int dst;
 inet_pton(AF_INET,"199.157.22.45",(void*)&dst);
-addr.sin_addr.s_addr = dst;
+addr.sin_addr.s_addr = dst;*/
+addr.sin_addr.s_addr = htonl(INADDR_ANY)
 bind( fd,(struct sockaddr*)&addr,size);
 ```
-
+- INADDR_ANY   取出系统中有效的任意ip地址，取出的默认是二进制类型的ip
 
 ![[Pasted image 20260313101847.png]]
 ![[Pasted image 20260313101905.png]]
