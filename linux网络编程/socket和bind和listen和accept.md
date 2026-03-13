@@ -16,13 +16,13 @@ data: 2026-03-13
 - 作用：给socket绑定一个地址结构（ip+port）
 - 头文件：和socket函数一样， `#include<sys/socket.h>`
 - 函数原型 : `int bind(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
-	- sockfd ：socket函数的返回值
+    - sockfd ：socket函数的返回值
 	
 	struct sockaddr_in addr;
-	addr.sin_family = AF_INET;  这里的ip类型必须和socket函数里的do'm
+	addr.sin_family = AF_INET;  这里的ip类型必须和socket函数里的domain保持一致
 	addr.sin_port = htons(9526);   //端口号
 	addr.sin_addr.s_addr=htonl(INADDR_ANY);  //ip地址
-	- addr :  (struct sockaddr*)&addr
+	- addr :  (struct sockaddr*)&addr  ，  是传入参数
 	- addrlen : sizeof(addr)    地址结构的大小
 	- 返回值：成功：0    失败：-1   errno
 
