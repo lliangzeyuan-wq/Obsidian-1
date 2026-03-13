@@ -24,7 +24,9 @@ data: 2026-03-13
 struct sockaddr_in addr;
 addr.sin_family = AF_INET/AF_INET6;
 addr.sin_port = htons(9526);
-
+int dst;
+inet_pton(AF_INET,"199.157.22.45",(void*)&dst);
+addr.sin_addr.s_addr = dst;
 bind( fd,(struct sockaddr*)&addr,size);
 ```
 
@@ -32,3 +34,5 @@ bind( fd,(struct sockaddr*)&addr,size);
 ![[Pasted image 20260313101847.png]]
 ![[Pasted image 20260313101905.png]]
 
+- 在这里贴一个，复习适用
+`int inet_pton(int af , const char* src , void * dst)`   ：p是ip，n代表net（网络），直接==把点分十进制的ip地址转成网络字节序==
