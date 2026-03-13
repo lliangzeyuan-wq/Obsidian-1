@@ -24,3 +24,15 @@ data: 2026-03-13
 	- addr :  (struct sockaddr*)&addr
 	- addrlen : sizeof(addr)    地址结构的大小
 	- 返回值：成功：0    失败：-1   errno
+
+
+### listen函数
+- 作用：设置监听上限（即同时和服务端连接的客户端的数量的最大上限）
+- 头文件：和socket函数，bind函数一样， `#include<sys/socket.h>`
+- 函数原型：`int listen(int sockfd, int backlog);`
+	- sockfd : socket函数返回值
+	- backlog：上限数值。最大值128
+	- 返回值：成功：0     失败：-1 errno
+
+### accept函数
+- 头文件：和socket函数，bind, listen函数一样， `#include<sys/socket.h>`
