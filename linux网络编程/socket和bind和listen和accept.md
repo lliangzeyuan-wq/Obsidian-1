@@ -19,8 +19,9 @@ data: 2026-03-13
 	- sockfd ：socket函数的返回值
 	
 	struct sockaddr_in addr;
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr=htonl(INADDR_ANY);
+	addr.sin_family = AF_INET;  这里的ip类型必须和socket函数里的do'm
+	addr.sin_port = htons(9526);   //端口号
+	addr.sin_addr.s_addr=htonl(INADDR_ANY);  //ip地址
 	- addr :  (struct sockaddr*)&addr
 	- addrlen : sizeof(addr)    地址结构的大小
 	- 返回值：成功：0    失败：-1   errno
