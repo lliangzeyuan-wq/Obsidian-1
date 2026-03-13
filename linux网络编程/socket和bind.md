@@ -10,3 +10,9 @@ data: 2026-03-13
 	- protocol : 你所选用的数据传输协议中的代表协议： 0 (根据type中所选的协议选择代表协议，流氏协议中的代表协议氏tcp，报氏协议中的代表协议是udp)
 	- 返回值：成功：新套接字所对应的文件描述符。失败：-1 errno
 	- 实战：`fd = socket(AF_INET,SOCK_STREAM,0);`
+	![[Pasted image 20260313150351.png]]
+
+### bind函数
+- 作用：
+- 函数原型 : `int bind(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
+`
