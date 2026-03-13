@@ -36,4 +36,8 @@ data: 2026-03-13
 	- 返回值：成功：0     失败：-1 errno
 
 ### accept函数
+- 作用：阻塞等待客户端建立连接，成功的话，返回一个与客户端成功连接的socket文件描述符
 - 头文件：和socket函数，bind, listen函数一样， `#include<sys/socket.h>`
+- 函数原型：`int accept(int sockfd,struct sockaddr *addr,socklent_t *addrlen)`
+	- sockfd  :  socket函数返回值
+	- addr：传出参数。传入一个空值，函数
