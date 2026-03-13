@@ -18,3 +18,10 @@ data: 2026-03-13
 
 
 ### 客户端
+- socket ： 创建套接字
+![[Pasted image 20260313142248.png]]
+- connect ：绑定ip+port   和服务端socket建立连接
+![[Pasted image 20260313142351.png]]
+
+- 客户端先写，然后循环来读写 
+![[Pasted image 20260313142415.png]]
