@@ -13,6 +13,6 @@ data: 2026-03-13
 - `const char * inet_ntop(int af,const void *src,char *dst,socklen_t size)`
 	- af:代表当前ip协议是什么协议，有AF_INET、AF_INET6(ipv4和ipv6)
 	- src ：传入，网络字节序IP地址
-	- dst：传出，ip地址（点分十进制
+	- dst：传出，本地字节序（string ip）
 	- size：dst的大小
 	- 返回值：成功：dst，失败：NULL
