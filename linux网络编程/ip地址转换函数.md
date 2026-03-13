@@ -10,7 +10,7 @@ data: 2026-03-13
 	- src ：传入，ip地址（点分十进制）
 	- dst：传出，转换后的网络字节序IP地址
 	- 返回值：成功（1），异常（0，说明src指向的不是一个有效的ip地址），失败（-1）
-- `const char * inet_ntop(int af,const void *src,char *dst,socklen_t size)`  把wang'l
+- `const char * inet_ntop(int af,const void *src,char *dst,socklen_t size)`  ==把网络字节序转换成点分十进制的ip地址==
 	- af:代表当前ip协议是什么协议，有AF_INET、AF_INET6(ipv4和ipv6)
 	- src ：传入，网络字节序IP地址
 	- dst：传出，本地字节序（string ip）
