@@ -5,5 +5,7 @@ data: 2026-03-13
 
 ### socket模型创建流程图
 ![[Pasted image 20260313131223.png]]
-- socket
+- socket()
 ![[Pasted image 20260313131308.png]]
+- bind()   :   往套接字上去绑定ip地址和端口
+- listen()  :  设置监听上限
