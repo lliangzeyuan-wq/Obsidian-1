@@ -3,6 +3,9 @@ data: 2026-03-13
 ---
 
 ![[Pasted image 20260313101847.png]]
+- sin_family :   AF_INET/AF_INET6(ipv4 , ipv6)
+- sin_port : 网络字节序的端口号（port），用的时候htos把来初始化一下
+- sin_addr：网络地址，inet_pton来初始化
 ![[Pasted image 20260313101905.png]]
 
 
