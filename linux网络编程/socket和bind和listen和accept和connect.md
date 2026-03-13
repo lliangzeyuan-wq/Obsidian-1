@@ -46,5 +46,6 @@ data: 2026-03-13
 
 
 ### 客户端connect函数
+- 作用：使用现有的socket与服务器建立连接
 - 头文件：常客，`#include<sys/socket.h>`
 - 函数原型：` int connect(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
