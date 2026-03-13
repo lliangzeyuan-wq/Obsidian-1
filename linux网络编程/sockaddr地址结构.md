@@ -1,7 +1,7 @@
 ---
 data: 2026-03-13
 ---
-- 这两张截图都是在linux中用 `man 7 ip` 来查看的
+- ==这两张截图都是在linux中用 `man 7 ip` 来查看的==
 ![[Pasted image 20260313101847.png]]
 - sin_family :   AF_INET/AF_INET6(ipv4 , ipv6)
 - sin_port : 网络字节序的端口号（port），用的时候htos把来初始化一下
