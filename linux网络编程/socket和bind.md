@@ -14,6 +14,7 @@ data: 2026-03-13
 
 ### bind函数
 - 作用：给socket绑定一个地址结构（ip+port）
+- 头文件：和socket函数一样， `#include<sys/socket.h>`
 - 函数原型 : `int bind(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
 	- sockfd ：socket函数的返回值
 	
@@ -21,4 +22,5 @@ data: 2026-03-13
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr=htonl(INADDR_ANY);
 	- addr :  (struct sockaddr*)&addr
-`
+	- addrlen : sizeof(addr)    地址结构的大小
+	- 返回值：成功：0    失败：-1   errno
