@@ -1,7 +1,7 @@
 ---
 data: 2026-03-13
 ---
-
+- 这两张截图都是在linux中用 `man 7 ip` 来查看的
 ![[Pasted image 20260313101847.png]]
 - sin_family :   AF_INET/AF_INET6(ipv4 , ipv6)
 - sin_port : 网络字节序的端口号（port），用的时候htos把来初始化一下
@@ -22,15 +22,19 @@ data: 2026-03-13
 ### 实际应用
 ```cpp
 struct sockaddr_in addr;
+
+//对内部的成员赋值
 addr.sin_family = AF_INET/AF_INET6;
 addr.sin_port = htons(9526);
 /*int dst;
 inet_pton(AF_INET,"199.157.22.45",(void*)&dst);
 addr.sin_addr.s_addr = dst;*/
 addr.sin_addr.s_addr = htonl(INADDR_ANY)
+
+
 bind( fd,(struct sockaddr*)&addr,size);
 ```
-- INADDR_ANY   取出系统中有效的任意ip地址，取出的默认是二进制类型的ip
+- INADDR_ANY   取出本机系统中有效的任意ip地址，取出的默认是二进制类型的ip
 
 ![[Pasted image 20260313101847.png]]
 ![[Pasted image 20260313101905.png]]
