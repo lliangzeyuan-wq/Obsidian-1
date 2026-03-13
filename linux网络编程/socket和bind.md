@@ -16,4 +16,9 @@ data: 2026-03-13
 - 作用：给socket绑定一个地址结构（ip+port）
 - 函数原型 : `int bind(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
 	- sockfd ：socket函数的返回值
+	
+	struct sockaddr_in addr;
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr=htonl(INADDR_ANY);
+	- addr :  (struct sockaddr*)&addr
 `
