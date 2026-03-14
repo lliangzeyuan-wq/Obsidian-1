@@ -1,6 +1,7 @@
 ---
 data: 2026-03-13
 ---
+### 网卡
 `sudo ip link set ens33 up`
 
 
@@ -9,3 +10,8 @@ data: 2026-03-13
 
 `ip addr`
 
+
+
+
+### 中文输入法启用
+`fcitx5 &`
