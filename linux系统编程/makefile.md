@@ -20,7 +20,8 @@ data: 2026-03-14
 ![[Pasted image 20260314204123.png]]
 - 两个函数
 	- src = $(wildcard  ./* .c)  : 匹配当前工作目录下的所有.c文件。将文件名组成列表，赋值给变量src (wildcard是函数名，后面的是传入的参数)    比如：src = add.c  sub.c div1.c
-	- obj = $(patsubst %.c, %.o %(src)) : 将参数3中，包含参数1的部分，替换成参数2，赋值给变量obj   比如src = add.c sub.c div1.c 
+	- obj = $(patsubst %.c, %.o ，%(src)) : 将参数3中，包含参数1的部分，替换成参数2，赋值给变量obj（写的时候‘，’不要省略  ）   比如src = add.c sub.c div1.c 
 	; 替换了之后 obj = add.o sub.o div1.o 
+![[Pasted image 20260314211310.png]]
 - 三个自动变量
 
