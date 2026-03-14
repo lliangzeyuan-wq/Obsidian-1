@@ -94,3 +94,11 @@ data: 2026-03-13
     - `fd`：`accept()` 函数的返回值（与客户端通信的文件描述符）
     - `buf`：要发送的数据所在的缓冲区
     - `count`：期望写入的字节数
+
+在 Linux 系统里：
+- **0 = STDIN_FILENO**（标准输入）  -》键盘
+- **1 = STDOUT_FILENO**（标准输出）-》终端屏幕
+- **2 = STDERR_FILENO**（标准错误）-》终端屏幕
+这3个宏定义饱包含在头文件`#include<unistd.h>`中
+- 应用：
+`wtite(STDOUT_FILENO,buf,sizeof(buf))`   把buf中的内容输出在屏幕上
