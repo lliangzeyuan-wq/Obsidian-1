@@ -25,3 +25,10 @@ data: 2026-03-14
 ![[Pasted image 20260314211310.png]]
 - 三个自动变量
 
+
+clean:
+![[Pasted image 20260315210123.png]]
+![[Pasted image 20260315210133.png]]
+
+- 执行：make clean [-n] 
+	- make clean ：执行：rm -rf $(on)
