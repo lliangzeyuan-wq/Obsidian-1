@@ -24,6 +24,9 @@ data: 2026-03-14
 	; 替换了之后 obj = add.o sub.o div1.o 
 ![[Pasted image 20260314211310.png]]
 - 三个自动变量
+	$@:
+	$<:
+	$^:
 
 
 clean:
@@ -31,4 +34,6 @@ clean:
 ![[Pasted image 20260315210133.png]]
 
 - 执行：make clean [-n] 
-	- make clean ：执行：rm -rf $(on)
+	- make clean ：执行：rm -rf $(obj) a.out
+	- 执行make clean -n :  屏幕中显示将要执行的命令： `rm -rf $(obj) a.out` ,但不去真的执行。起一个预览功能
+	- rm前面的 - 是干什么的：删除不存在的文件的时候，不会报错
