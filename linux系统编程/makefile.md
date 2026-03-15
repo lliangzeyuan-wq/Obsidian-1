@@ -32,6 +32,12 @@ data: 2026-03-14
 	%.o : %.c
 		gcc -c $< -o $@
 
+静态模式规则：指定某个模式规则给谁用
+![[Pasted image 20260315215751.png]]
+![[Pasted image 20260315215758.png]]
+
+
+
 
 clean:
 ![[Pasted image 20260315210123.png]]
