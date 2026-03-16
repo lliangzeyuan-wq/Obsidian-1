@@ -51,3 +51,43 @@ clean:
 	- 执行make clean -n :  屏幕中显示将要执行的命令： `rm -rf $(obj) a.out` ,但不去真的执行。起一个预览功能
 	- rm前面的 - 是干什么的：删除不存在的文件的时候，不会报错
 
+
+
+
+
+- 一个很标准，符合可移植规则的makefile
+- 作用：把zhe
+```cpp
+# 定义编译参数：开启所有警告(-Wall) + 生成调试信息(-g)
+# 这和你手动敲 -Wall -g 是一样的
+CFLAGS = -Wall -g
+
+# 定义目标程序名（最终生成的可执行文件叫 "server"）
+TARGET = server
+
+# 定义源文件（自动查找当前目录下所有的 .c 文件，这里只有 server.c）
+SRCS = $(wildcard *.c)
+
+# 将 .c 后缀替换成 .o 后缀（生成 server.o）
+OBJS = $(patsubst %.c, %.o, $(SRCS))
+
+# 1. 默认目标：执行 make 时直接编译出服务器
+all: $(TARGET)
+
+# 2. 生成目标程序 server
+# 依赖是 server.o，gcc 会把它链接成可执行文件
+$(TARGET): $(OBJS)
+	$(CC) $^ -o $@ $(CFLAGS)
+
+# 3. 生成 .o 文件
+# 规则：任何 .c 文件变化，都会重新编译
+%.o: %.c
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+# 4. 清理命令：执行 make clean 删除生成的文件
+clean:
+	rm -rf $(OBJS) $(TARGET)
+
+# 5. 声明伪目标，防止目录里有名为 clean/all 的文件冲突
+.PHONY: all clean
+```
