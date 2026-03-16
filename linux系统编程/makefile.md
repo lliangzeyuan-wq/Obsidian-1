@@ -36,7 +36,10 @@ data: 2026-03-14
 ![[Pasted image 20260315215751.png]]
 ![[Pasted image 20260315215758.png]]
 
-
+伪目标：
+	`.PHONY clean ALL`
+![[Pasted image 20260315220216.png]]
+- 作用：防止当前目录中有clean文件或者ALL文件影响`make clean`命令的执行
 
 
 clean:
