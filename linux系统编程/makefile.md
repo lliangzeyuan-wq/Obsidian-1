@@ -56,7 +56,7 @@ clean:
 
 
 - 一个很标准，符合可移植规则的makefile
-- 作用：把zhe
+- 作用：编译出server.o server
 ```cpp
 # 定义编译参数：开启所有警告(-Wall) + 生成调试信息(-g)
 # 这和你手动敲 -Wall -g 是一样的
