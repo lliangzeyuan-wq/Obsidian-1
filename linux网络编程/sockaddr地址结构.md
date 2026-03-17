@@ -34,7 +34,7 @@ addr.sin_addr.s_addr = htonl(INADDR_ANY)
 
 bind( fd,(struct sockaddr*)&addr,size);
 ```
-- INADDR_ANY   取出本机系统中有效的任意ip地址，取出的默认是二进制类型的ip
+- INADDR_ANY   取出==本机==（host）系统中有效的任意ip地址，取出的默认是二进制类型的ip
 
 ![[Pasted image 20260313101847.png]]
 ![[Pasted image 20260313101905.png]]
