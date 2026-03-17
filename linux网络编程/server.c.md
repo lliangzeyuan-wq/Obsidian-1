@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
     int lfd = 0, cfd = 0;
     int ret, i;  // 补充循环变量 i 的声明
-    char buf[MY_BUFSIZ];
+    char buf[MY_BUFSIZ],client_IP[1024];
 
     struct sockaddr_in serv_addr, clit_addr;
     socklen_t clit_addr_len;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     if (cfd == -1){
         sys_err("accept error");
 	}
-
+	printf("client ip:%s port:%d\n",inet_ntop(AF_INET,&clit_addr.sin_addr.s_addr,client_IP,sizeof(client_IP)),ntohs(clit_addr..sin_port));
 	while(1)
 	{
 		ret=read(cfd,buf,sizeof(buf));
