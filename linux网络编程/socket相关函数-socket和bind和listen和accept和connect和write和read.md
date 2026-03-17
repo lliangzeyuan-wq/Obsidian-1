@@ -51,6 +51,9 @@ data: 2026-03-13
 - 函数原型：` int connect(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
 	- sockfd：sockfd 函数返回值
 	- addr：传入参数，要连接的==服务器==的addr
+		struct sockaddr_in srv_addr;    //服务器地址结构
+		srv_addr.sin_family=AF_INET;
+		srv_addr
 	- addrlen：传入参数，==服务器地址addr的大小==
 	- 返回值：成功：0  ， 失败： -1 errno
 
