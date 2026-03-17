@@ -50,8 +50,8 @@ data: 2026-03-13
 - 头文件：常客，`#include<sys/socket.h>`
 - 函数原型：` int connect(int sockfd, const struct sockaddr *addr,socklen_t addrlen);`
 	- sockfd：sockfd 函数返回值
-	- addr：传入参数，要连接的服务器的addr
-	- addrlen：传入参数，服务器地址addr的大小
+	- addr：传入参数，要连接的==服务器==的addr
+	- addrlen：传入参数，==服务器地址addr的大小==
 	- 返回值：成功：0  ， 失败： -1 errno
 
 
