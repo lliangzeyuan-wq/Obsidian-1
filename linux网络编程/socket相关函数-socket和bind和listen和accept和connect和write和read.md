@@ -28,7 +28,7 @@ data: 2026-03-13
 
 
 ### listen函数
-- 作用：设置监听上限（即同时和服务端连接的客户端的数量的最大上限）
+- 作用：设置监听上限（即已经完成 TCP 三次握手、等待服务器调用`accept()`取走的连接队列」的最大长度）
 - 头文件：和socket函数，bind函数一样， `#include<sys/socket.h>`
 - 函数原型：`int listen(int sockfd, int backlog);`
 	- sockfd : socket函数返回值
