@@ -53,7 +53,8 @@ data: 2026-03-13
 	- addr：传入参数，要连接的==服务器==的addr
 		struct sockaddr_in srv_addr;    //服务器地址结构
 		srv_addr.sin_family=AF_INET;
-		srv_addr
+		srv_addr.sin_port=9527  //跟服务器bind时设定的port完全一致
+		inet_pton(AF_INET,"服务器的ip地址",&srv_addr.sin_addr.s_addr);
 	- addrlen：传入参数，==服务器地址addr的大小==
 	- 返回值：成功：0  ， 失败： -1 errno
 
