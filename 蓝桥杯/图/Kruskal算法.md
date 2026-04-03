@@ -1,7 +1,7 @@
 ---
 data: 2026-04-03
 ---
-## 版本 1：算法题标准全局数组版（推荐竞赛用）
+![[Pasted image 20260403214434.png]]
 
 ```cpp
 #include <iostream>
@@ -9,103 +9,125 @@ data: 2026-04-03
 #include <algorithm>
 using namespace std;
 
-// -------------------------- 1. 边的结构体 --------------------------
-// 存储无向边：起点u、终点v、权值w
-struct Edge {
-    int u, v, w;
-    // 重载<运算符，让sort直接按权值从小到大排序
-    bool operator<(const Edge& other) const {
-        return this->w < other.w;
+// ==================== 排序用的比较函数（不用lambda，零乱码） ====================
+bool cmp(const vector<int>& a, const vector<int>& b) {
+    return a[2] < b[2]; // 按道路长度从小到大排序
+}
+
+// ==================== 并查集类（完整实现） ====================
+class UF {
+private:
+    int count;          // 连通分量个数
+    vector<int> parent; // 父节点数组
+    vector<int> size;   // 树的大小，用于按秩合并
+
+    // 找根节点，带路径压缩
+    int find(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]]; // 路径压缩
+            x = parent[x];
+        }
+        return x;
+    }
+
+public:
+    // 构造函数：初始化1~n的城市节点
+    UF(int n) {
+        count = n;
+        parent.resize(n + 1); // 城市编号1~n，0号闲置不用
+        size.resize(n + 1, 1);
+        for (int i = 1; i <= n; ++i) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    // 合并两个连通分量
+    void unite(int p, int q) {
+        int rootP = find(p);
+        int rootQ = find(q);
+        if (rootP == rootQ) return; // 已经连通，无需合并
+
+        // 小树挂到大树上，保持树平衡
+        if (size[rootP] > size[rootQ]) {
+            parent[rootQ] = rootP;
+            size[rootP] += size[rootQ];
+        } else {
+            parent[rootP] = rootQ;
+            size[rootQ] += size[rootP];
+        }
+        count--; // 连通分量数减1
+    }
+
+    // 判断两个节点是否连通
+    bool connected(int p, int q) {
+        return find(p) == find(q);
+    }
+
+    // 获取当前连通分量总数
+    int getCount() {
+        return count;
     }
 };
 
-// -------------------------- 2. 并查集（带路径压缩+按秩合并优化） --------------------------
-const int MAXN = 100010; // 最大顶点数，可根据题目调整（比如n=1e5就设1e5+10）
-int father[MAXN]; // 父节点数组
-int rank_[MAXN];  // 秩数组（记录树的高度，用于按秩合并，避免树过高）
-
-// 初始化并查集：每个节点的父节点是自己，秩为1
-void init(int n) {
-    for (int i = 1; i <= n; ++i) { // 1-based顶点编号，和你之前的代码习惯一致
-        father[i] = i;
-        rank_[i] = 1;
-    }
-}
-
-// 查找根节点（带路径压缩：让x直接指向根，加速后续查询）
-int find(int x) {
-    if (father[x] != x) {
-        father[x] = find(father[x]);
-    }
-    return father[x];
-}
-
-// 合并两个集合（按秩合并：保证树的平衡，时间复杂度接近O(1)）
-// 返回值：true=合并成功（选这条边），false=已连通（跳过这条边）
-bool unite(int x, int y) {
-    int fx = find(x);
-    int fy = find(y);
-    if (fx == fy) return false; // 两个节点已经连通，加边会成环，跳过
-    
-    // 把矮树合并到高树的根下，保持树的平衡
-    if (rank_[fx] > rank_[fy]) {
-        father[fy] = fx;
-    } else {
-        father[fx] = fy;
-        if (rank_[fx] == rank_[fy]) {
-            rank_[fy]++;
-        }
-    }
-    return true;
-}
-
-// -------------------------- 3. Kruskal算法主函数 --------------------------
+// ==================== 主函数（完整逻辑） ====================
 int main() {
-    ios::sync_with_stdio(false); // 加速cin/cout，避免算法题超时
-    cin.tie(nullptr);
+    // 输入加速，避免大数据超时
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-    int n, m; // n：顶点数，m：边数
-    cin >> n >> m;
+    int T; // 测试用例数量
+    cin >> T;
+    while (T--) {
+        int N, M; // N：城市数，M：道路数
+        cin >> N >> M;
+        vector<vector<int>> edges; // 存储所有道路
+        edges.reserve(M); // 提前分配空间，提升效率
 
-    vector<Edge> edges(m); // 存储所有边
-    for (int i = 0; i < m; ++i) {
-        cin >> edges[i].u >> edges[i].v >> edges[i].w;
-    }
+        // 读取所有道路
+        for (int i = 0; i < M; ++i) {
+            int X, Y, C;
+            cin >> X >> Y >> C;
+            // 把道路存入数组，兼容所有版本Dev-C++
+            vector<int> temp;
+            temp.push_back(X);
+            temp.push_back(Y);
+            temp.push_back(C);
+            edges.push_back(temp);
+        }
 
-    // 步骤1：按边权从小到大排序（贪心核心：先选权值最小的边）
-    sort(edges.begin(), edges.end());
+        // ==================== 修复后的排序代码（零乱码，不用lambda） ====================
+        sort(edges.begin(), edges.end(), cmp);
 
-    // 步骤2：初始化并查集，每个节点初始为独立集合
-    init(n);
+        UF uf(N); // 初始化并查集
+        int max_fuel = 0; // 记录最小生成树的最大边（答案）
 
-    long long total_weight = 0; // 最小生成树总权值（用long long避免int溢出！）
-    int edge_count = 0;          // 已选边数，最终需要等于n-1（生成树的边数=顶点数-1）
-    // 可选：如果需要求「最小生成树的最大边权」（最小瓶颈生成树），加这个变量
-    // long long max_edge = 0;
+        // Kruskal算法核心：遍历排序后的边
+        for (int i = 0; i < M; ++i) {
+            int X = edges[i][0];
+            int Y = edges[i][1];
+            int C = edges[i][2];
 
-    // 步骤3：遍历所有边，贪心选边
-    for (const Edge& e : edges) {
-        // 用并查集判断u和v是否连通：不连通就选这条边
-        if (unite(e.u, e.v)) {
-            total_weight += e.w; // 累加总权值
-            edge_count++;        // 已选边数+1
-            // max_edge = max(max_edge, (long long)e.w); // 可选：更新最大边权
+            // 如果已经连通，跳过（避免成环）
+            if (uf.connected(X, Y)) {
+                continue;
+            }
 
-            // 优化：选够n-1条边后直接退出，无需遍历剩余边
-            if (edge_count == n - 1) {
+            // 合并连通分量，更新最大边
+            uf.unite(X, Y);
+            if (C > max_fuel) {
+                max_fuel = C;
+            }
+
+            // 所有城市已经连通，提前退出循环
+            if (uf.getCount() == 1) {
                 break;
             }
         }
-    }
 
-    // 步骤4：判断是否生成最小生成树（图是否连通）
-    if (edge_count == n - 1) {
-        cout << "最小生成树总权值为: " << total_weight << endl;
-        // cout << "最小生成树的最大边权为: " << max_edge << endl; // 可选输出
-    } else {
-        cout << "图不连通，不存在最小生成树！" << endl;
+        // 输出当前测试用例的答案
+        cout << max_fuel << endl;
     }
-
     return 0;
 }
 ```
