@@ -18,3 +18,9 @@ int fputc(int char, FILE *stream)
 ## 返回值
 
 如果没有发生错误，则返回被写入的字符。如果发生错误，则返回 EOF，并设置错误标识符。
+## 实例
+
+下面的实例演示了 fputc() 函数的用法。
+
+![[Pasted image 20260407223021.png]]
+![[Pasted image 20260407223027.png]]
