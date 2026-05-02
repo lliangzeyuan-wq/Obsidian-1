@@ -6,7 +6,7 @@
 {"msgid":5,"id":13,"from":"zhang san","to":15,"msg":"hello222"}
 {"msgid":5,"id":15,"from":"li si","to":13,"msg":"挺好的?"} 
 
-{"msgid":6,"id":13,"friend":15}
+{"msgid":6,"id":13,"friendid":15}
 
 msgid 
 id:1 
