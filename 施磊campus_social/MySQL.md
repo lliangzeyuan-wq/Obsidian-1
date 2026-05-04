@@ -1,31 +1,74 @@
+# 校园社交匹配系统 - 数据库设计文档
 
-# chat_message
+## 数据库名称：`chat`
 
-|字段名称|字段类型|字段说明|约束|
-|---|---|---|---|
-|id|INT|消息 ID|PRIMARY KEY、AUTO_INCREMENT|
-|from_id|VARCHAR(20)|发送者 ID|-|
-|to_id|VARCHAR(20)|接收者 ID|-|
-|content|TEXT|消息内容|-|
-|create_time|TIMESTAMP|发送时间|DEFAULT CURRENT_TIMESTAMP|
+### 一、用户表（`user`）
 
+**表说明**：存储系统用户的基本信息，包括登录账号、密码和在线状态。
 
-
-# friend_relation
+表格
 
 |字段名称|字段类型|字段说明|约束|
-|---|---|---|---|
-|id|INT|好友关系记录 ID|PRIMARY KEY、AUTO_INCREMENT|
-|user_id_1|VARCHAR(20)|好友双方用户 ID|-|
-|user_id_2|VARCHAR(20)|好友双方用户 ID|-|
-|create_time|TIMESTAMP|好友关系建立时间|DEFAULT CURRENT_TIMESTAMP|
+|:--|:--|:--|:--|
+|`id`|INT|用户 ID（主键）|PRIMARY KEY、AUTO_INCREMENT、NOT NULL|
+|`name`|VARCHAR(50)|用户名 / 账号|UNIQUE、NOT NULL|
+|`password`|VARCHAR(50)|用户密码|NOT NULL|
+|`state`|ENUM('online', 'offline')|用户在线状态|DEFAULT 'offline'|
 
-# invitation
+---
+
+### 二、好友关系表（`friend`）
+
+**表说明**：记录用户之间的好友关系，是一个多对多关联表。
+
+表格
 
 |字段名称|字段类型|字段说明|约束|
-|---|---|---|---|
-|id|INT|好友邀请记录 ID|PRIMARY KEY、AUTO_INCREMENT|
-|from_id|VARCHAR(20)|邀请发起者用户 ID|-|
-|to_id|VARCHAR(20)|邀请接收者用户 ID|-|
-|status|TINYINT|邀请状态（0 = 待处理 / 1 = 已接受 / 2 = 已拒绝）|DEFAULT 0|
-|create_time|TIMESTAMP|邀请发送时间|DEFAULT CURRENT_TIMESTAMP|
+|:--|:--|:--|:--|
+|`userid`|INT|用户 ID|PRIMARY KEY（联合主键）、NOT NULL|
+|`friendid`|INT|好友 ID|PRIMARY KEY（联合主键）、NOT NULL|
+
+---
+
+### 三、群组表（`allgroup`）
+
+**表说明**：存储所有群组的基本信息。
+
+表格
+
+|字段名称|字段类型|字段说明|约束|
+|:--|:--|:--|:--|
+|`id`|INT|群组 ID（主键）|PRIMARY KEY、AUTO_INCREMENT、NOT NULL|
+|`groupname`|VARCHAR(50)|群组名称|NOT NULL|
+|`groupdesc`|VARCHAR(200)|群组功能描述|可为空|
+
+---
+
+### 四、群组成员表（`groupuser`）
+
+**表说明**：记录用户与群组的关联关系，以及用户在群内的角色。
+
+表格
+
+|字段名称|字段类型|字段说明|约束|
+|:--|:--|:--|:--|
+|`groupid`|INT|群组 ID|PRIMARY KEY（联合主键）、NOT NULL|
+|`userid`|INT|用户 ID|PRIMARY KEY（联合主键）、NOT NULL|
+|`grouprole`|ENUM('creator', 'normal')|用户在群内的角色（创建者 / 普通成员）|DEFAULT 'normal'|
+
+---
+
+### 五、离线消息表（`offlinemessage`）
+
+**表说明**：存储用户离线期间收到的消息，用户上线后可拉取查看。
+
+表格
+
+|字段名称|字段类型|字段说明|约束|
+|:--|:--|:--|:--|
+|`userid`|INT|接收消息的用户 ID|NOT NULL|
+|`message`|VARCHAR(500)|离线消息内容|NOT NULL|
+
+---
+
+需要我把这些表的**创建 SQL 语句**也帮你整理出来，方便你直接导入数据库吗？
