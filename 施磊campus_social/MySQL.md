@@ -16,20 +16,20 @@
 
 表格
 
-| 字段名         | 数据类型         | 是否主键 | 允许为空 | 默认值     | 字段说明                                                 |
-| ----------- | ------------ | ---- | ---- | ------- | ---------------------------------------------------- |
-| id          | int          | 是    | 否    | 自增      | 用户唯一 ID                                              |
-| username    | varchar(50)  | 否    | 否    | 无       | 登录用户名，唯一                                             |
-| password    | varchar(50)  | 否    | 否    | 无       | 登录密码                                                 |
-| studentid   | varchar(20)  | 否    | 是    | NULL    | 学号                                                   |
-| gender      | tinyint      | 否    | 是    | 1       | 性别：1 - 男，2 - 女                                       |
-| age         | int          | 否    | 是    | 18      | 年龄                                                   |
-| major       | varchar(100) | 否    | 是    | NULL    | 专业                                                   |
-| avatar      | varchar(255) | 否    | 是    | NULL    | 头像存储路径 / 链接                                          |
-| purpose     | varchar(20)  | 否    | 是    | study   | 交友目的：study 学习搭子 /kaoyan 考研搭子 /friend 同性交友 /love 异性恋爱 |
-| tags        | varchar(255) | 否    | 是    | NULL    | 兴趣标签，多标签逗号分隔                                         |
-| intro       | varchar(255) | 否    | 是    | NULL    | 个人简介                                                 |
-| state       | enum         | 否    | 是    | offline | 在线状态：online 在线，offline 离线                            |
+| 字段名       | 数据类型         | 是否主键 | 允许为空 | 默认值     | 字段说明                                                 |
+| --------- | ------------ | ---- | ---- | ------- | ---------------------------------------------------- |
+| id        | int          | 是    | 否    | 自增      | 用户唯一 ID                                              |
+| username  | varchar(50)  | 否    | 否    | 无       | 登录用户名，唯一                                             |
+| password  | varchar(50)  | 否    | 否    | 无       | 登录密码                                                 |
+| studentid | varchar(20)  | 否    | 是    | NULL    | 学号                                                   |
+| gender    | tinyint      | 否    | 是    | 1       | 性别：1 - 男，2 - 女                                       |
+| age       | int          | 否    | 是    | 18      | 年龄                                                   |
+| major     | varchar(100) | 否    | 是    | NULL    | 专业                                                   |
+| avatar    | varchar(255) | 否    | 是    | NULL    | 头像存储路径 / 链接                                          |
+| purpose   | varchar(20)  | 否    | 是    | study   | 交友目的：study 学习搭子 /kaoyan 考研搭子 /friend 同性交友 /love 异性恋爱 |
+| tags      | varchar(255) | 否    | 是    | NULL    | 兴趣标签，多标签逗号分隔                                         |
+| intro     | varchar(255) | 否    | 是    | NULL    | 个人简介                                                 |
+| state     | enum         | 否    | 是    | offline | 在线状态：online 在线，offline 离线                            |
 
 
 ---
