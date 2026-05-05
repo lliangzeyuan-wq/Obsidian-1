@@ -16,23 +16,20 @@
 
 表格
 
-| 字段名       | 数据类型         | 是否主键 | 允许为空 | 默认值     | 字段说明                                                 |
-| --------- | ------------ | ---- | ---- | ------- | ---------------------------------------------------- |
-| id        | int          | 是    | 否    | 自增      | 用户唯一 ID                                              |
-| username  | varchar(50)  | 否    | 否    | 无       | 登录用户名，唯一                                             |
-| password  | varchar(50)  | 否    | 否    | 无       | 登录密码                                                 |
-| studentid | varchar(20)  | 否    | 是    | NULL    | 学号                                                   |
-| gender    | tinyint      | 否    | 是    | 1       | 性别：1 - 男，2 - 女                                       |
-| age       | int          | 否    | 是    | 18      | 年龄                                                   |
-| major     | varchar(100) | 否    | 是    | NULL    | 专业                                                   |
-| avatar    | varchar(255) | 否    | 是    | NULL    | 头像存储路径 / 链接                                          |
-| purpose   | varchar(20)  | 否    | 是    | study   | 交友目的：study 学习搭子 /kaoyan 考研搭子 /friend 同性交友 /love 异性恋爱 |
-| tags      | varchar(255) | 否    | 是    | NULL    | 兴趣标签，多标签逗号分隔                                         |
-| intro     | varchar(255) | 否    | 是    | NULL    | 个人简介                                                 |
-| state     | enum         | 否    | 是    | offline | 在线状态：online 在线，offline 离线                            |
+|字段名|数据类型|是否主键|约束|允许为空|默认值|字段说明|
+|:--|:--|:--|:--|:--|:--|:--|
+|`id`|`INT`|是|`PRIMARY KEY`, `AUTO_INCREMENT`|否|自增|用户唯一 ID，数据库自增主键，用于内部关联|
+|`username`|`VARCHAR(50)`|否|无|是|`NULL`|用户真实姓名 / 昵称|
+|`password`|`VARCHAR(50)`|否|`NOT NULL`|否|`NULL`|用户登录密码|
+|`studentid`|`VARCHAR(20)`|否|`NOT NULL`, `UNIQUE`|否|`NULL`|用户学号，业务唯一标识，用于登录|
+|`gender`|`TINYINT`|否|无|是|`1`|用户性别：1 - 男，2 - 女|
+|`age`|`INT`|否|无|是|`18`|用户年龄|
+|`major`|`VARCHAR(100)`|否|无|是|`NULL`|用户所属专业|
+|`avatar`|`VARCHAR(255)`|否|无|是|`NULL`|用户头像存储路径或链接|
+|`purpose`|`VARCHAR(20)`|否|无|是|`'study'`|交友目的：study/kaoyan/friend/love|
+|`tags`|`VARCHAR(255)`|否|无|是|`NULL`|用户兴趣标签，多标签用逗号分隔|
+|`intro`|`VARCHAR(255)`|否|无|是|`NULL`|用户个人简介|
 
-
----
 
 # 表 2：match_invite 交友匹配邀请表
 
@@ -40,13 +37,15 @@
 
 表格
 
-|字段名|数据类型|是否主键|允许为空|默认值|字段说明|
-|---|---|---|---|---|---|
-|id|int|是|否|自增|邀请记录唯一 ID|
-|from_uid|int|否|否|无|邀请发起者用户 ID|
-|to_uid|int|否|否|无|邀请接收者用户 ID|
-|status|tinyint|否|是|0|邀请状态：0 - 待处理，1 - 已同意，2 - 已拒绝|
-|create_time|datetime|否|是|当前时间|邀请发起时间|
+|字段名|数据类型|是否主键|约束|允许为空|默认值|字段说明|
+|:--|:--|:--|:--|:--|:--|:--|
+|`id`|`INT`|是|`PRIMARY KEY`, `AUTO_INCREMENT`|否|自增|邀请记录唯一 ID|
+|`from_uid`|`INT`|否|`NOT NULL`|否|`NULL`|邀请发起者用户 ID（外键关联`user.id`）|
+|`to_uid`|`INT`|否|`NOT NULL`|否|`NULL`|邀请接收者用户 ID（外键关联`user.id`）|
+|`status`|`TINYINT`|否|无|是|`0`|邀请状态：0 - 待处理，1 - 已同意，2 - 已拒绝|
+|`create_time`|`DATETIME`|否|无|是|`CURRENT_TIMESTAMP`|邀请发起时间，自动生成|
+
+---
 
 ---
 
