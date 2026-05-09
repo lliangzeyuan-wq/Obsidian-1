@@ -16,3 +16,7 @@ data: 2026-03-12
 `gcc -c add.c -o add.o`
 - 生成可执行文件
 `gcc add.c -o add`
+
+
+
+![[Pasted image 20260509160542.png]]
