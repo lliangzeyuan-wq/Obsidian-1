@@ -8,4 +8,5 @@ run/r: 运行程序
 n/next: 下一条指令（会越过函数）
 s/step: 下一条指令（会进入函数）
 p/print: p i 查看变量的值。
+continue : 继续执行直到下一个断点处或程序结束
 q/quit :  退出gdb调试过程
