@@ -4,18 +4,18 @@
 
 表格
 
-|命令|作用说明|
-|---|---|
-|`SET`|添加或修改已存在的一个 String 类型键值对|
-|`GET`|根据 key 获取 String 类型的 value|
-|`MSET`|批量添加多个 String 类型的键值对|
-|`MGET`|根据多个 key 获取多个 String 类型的 value|
-|`INCR`|让一个整型的 key 自增 1|
-|`INCRBY`|让一个整型的 key 自增并指定步长，例如：`incrby num 2` 让 num 值自增 2|
-|`INCRBYFLOAT`|让一个浮点类型的数字自增并指定步长|
-|`SETNX`|添加一个 String 类型的键值对，前提是这个 key 不存在，否则不执行|
-|`SETEX`|添加一个 String 类型的键值对，并且指定有效期|
-|`DEL`|删除指定的 key（补充）|
+| 命令            | 作用说明                                             |
+| ------------- | ------------------------------------------------ |
+| `SET`         | 添加或修改已存在的一个 String 类型键值对                         |
+| `GET`         | 根据 key 获取 String 类型的 value                       |
+| `MSET`        | 批量添加多个 String 类型的键值对                             |
+| `MGET`        | 根据多个 key 获取多个 String 类型的 value                   |
+| `INCR`        | 让一个整型的 key 自增 1                                  |
+| `INCRBY`      | 让一个整型的 key 自增并指定步长，例如：`incrby num 2` 让 num 值自增 2 |
+| `INCRBYFLOAT` | 让一个浮点类型的数字自增并指定步长                                |
+| `SETNX`       | 添加一个 String 类型的键值对，前提是这个 key 不存在，否则不执行           |
+| `SETEX`       | 添加一个 String 类型的键值对，并且指定有效期                       |
+|               |                                                  |
 
 ### set
 SET name jack
@@ -30,4 +30,13 @@ INCR age
 ### INCRBY
 INCRBY age -3
 ### INCRBYFLOAT 
-SET num 10.
+SET num 10.1
+INCRBYFLOAT num -0.98
+### setnx
+SETNX name jack
+- 只有当name不存在的时候会设置 返回1
+- 当name存在，返回0 ， 不修改
+### setex
+- 相当于set + expire(指定存在的时间)
+SETEX name 10 jack
+==> SET name jack EX 10
