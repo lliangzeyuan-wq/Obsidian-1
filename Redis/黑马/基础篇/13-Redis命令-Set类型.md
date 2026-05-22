@@ -1,5 +1,13 @@
 [基础篇-13.Redis命令-Set类型_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1cr4y1671t?spm_id_from=333.788.videopod.episodes&vd_source=43c9de78f6e5f2b05790188e274ad943&p=14)
 
+## Set 类型
+
+Redis 的 Set 结构与 Java 中的`HashSet`类似，可以看做是一个 value 为`null`的`HashMap`。因为也是一个 hash 表，因此具备与`HashSet`类似的特征：
+
+- 无序
+- 元素不可重复
+- 查找快
+
 ## Set 类型的常见命令
 
 - `SADD key member ...`：向 set 中添加一个或多个元素
@@ -31,3 +39,9 @@ SMEMBERS s1
 2)"b"
 3)"c"
 ```
+### SINTER
+SINTER s1 s2
+### SDIFF
+SDIFF s1 s2
+### SUNION
+SUNION s1 s2
