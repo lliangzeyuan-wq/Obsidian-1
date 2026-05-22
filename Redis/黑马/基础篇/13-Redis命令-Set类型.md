@@ -9,5 +9,22 @@
 - `SMEMBERS key`：获取 set 中的所有元素
 
 ### SADD
-- xiang
+- 向集合s1里面加入 a b c
 SADD s1 a b c
+### SREM
+- rem -> remove
+SREM s1 a
+### SCARD
+SCARD s1
+### SISMEMBER
+SISMEMBER s1 a
+- 如果a在集合s1里面，返回1
+- 如果不在，返回0
+### SMEMBERS key
+SMEMBERS s1
+- 返回
+```
+1)"a"
+2)"b"
+3)"c"
+```
