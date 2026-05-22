@@ -57,4 +57,4 @@ ZRANGEBYSCORE stus 0 80
 2) "Jerry"
 
 
-*3  \r\n$3\r\n  SET\r\n$5\r\nmykey\r\n$5\r\nhello\r\n
+*3 \r\n   $3\r\n SET\r\n    $5\r\nmykey\r\n    $5\r\nhello\r\n
