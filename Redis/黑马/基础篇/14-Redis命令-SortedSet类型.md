@@ -19,3 +19,9 @@ SortedSet 的常见命令有：
 - `ZRANGEBYSCORE key min max`：按照 score 排序后，获取指定 score 范围内的元素
 - `ZDIFF`、`ZINTER`、`ZUNION`：求差集、交集、并集
 ==注意：== 所有的排名默认都是升序，如果要降序则在命令的Z后面添加REV(reverse 反转的意思）即可（比如：ZRANK --->  ZREVRANK 
+
+### ZADD
+ZADD stus 85 Jack 89 Lucy 82 Rose 95 Tom 78 Jerry 92 Amy 76 Miles
+### ZREM 
+ZREM stus Tom
+### ZREM stus Tom
