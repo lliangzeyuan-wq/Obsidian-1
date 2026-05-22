@@ -7,6 +7,9 @@
 - `SCARD key`：返回 set 中元素的个数
 - `SISMEMBER key member`：判断一个元素是否存在于 set 中
 - `SMEMBERS key`：获取 set 中的所有元素
+- `SINTER key1 key2 ...`：求 `key1` 与 `key2` 的交集 
+- `SDIFF key1 key2 ...`：求 `key1` 与 `key2` 的差集
+- `SUNION key1 key2 ...`：求 `key1` 和 `key2` 的并集
 
 ### SADD
 - 向集合s1里面加入 a b c
