@@ -1,5 +1,10 @@
 [基础篇-11.Redis命令-Hash类型_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1cr4y1671t?spm_id_from=333.788.videopod.episodes&vd_source=43c9de78f6e5f2b05790188e274ad943&p=12)
 
+
+![[Pasted image 20260522154442.png]]
+
+
+
 # Redis Hash 类型常见命令笔记
 
 表格
@@ -54,3 +59,8 @@ HVALS heima:user:4
 3)"man"
 ```
 ### HINCRBY
+HINCRBY heima:user:4 age -2
+### HSETNX
+HSET heima:user:3 age 18
+- 如果已经存在 ， 返回0 ， 设置失败
+- 如果不存在 ， 返回1 ， 设置成功
