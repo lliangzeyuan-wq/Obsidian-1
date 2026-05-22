@@ -23,8 +23,8 @@ List 的常见命令有：
 - `LPOP key`：移除并返回列表左侧的第一个元素，没有则返回 nil
 - `RPUSH key element ...`：向列表右侧插入一个或多个元素
 - `RPOP key`：移除并返回列表右侧的第一个元素
-- `LRANGE key start end`：返回一段下标范围内的所有元素
-- `BLPOP` 和 `BRPOP`：与 `LPOP` 和 `RPOP` 类似，只不过在没有元素时等待指定时间，而不是直接返回 `nil`
+- `LRANGE key num1 num2`：返回一段下标范围内的所有元素
+- `BLPOP` 和 `BRPOP`：与 `LPOP` 和 `RPOP` 类似，只不过在没有元素时==等待指定时间==(阻塞），而不是直接返回 `nil`
 
 ---
 
@@ -34,3 +34,18 @@ List 的常见命令有：
 - **右侧操作**：`RPUSH`（从右插入）、`RPOP`（从右弹出）
 
 
+### LPUSH
+LPUSH users 1 2 3 
+- 相当于链表的头插
+![[Pasted image 20260522171655.png]]
+
+### LPOL
+LPOL users 2 
+- 从users左边弹出2个
+- 返回：
+```
+1)"3"
+2)"4"
+```
+
+### 
