@@ -24,4 +24,23 @@ SortedSet 的常见命令有：
 ZADD stus 85 Jack 89 Lucy 82 Rose 95 Tom 78 Jerry 92 Amy 76 Miles
 ### ZREM 
 ZREM stus Tom
-### ZREM stus Tom
+### ZSCORE
+ZSCORE stus Rose
+- 返回：
+"82"
+### ZRANK
+ZRANK  stus Rose
+### ZCARD
+ZCARD stus
+### ZCOUNT 
+- ZCOUNT 指定分数区间
+ZCOUNT stus 0 85
+
+### ZINCRBY
+(Amy : 92)
+ZINCRBY stus 2 Amy
+- 返回：
+"94"
+### ZRANGE
+- ZRANGE 指定排名
+ZRANGE stus 0 2
