@@ -33,8 +33,10 @@ ZRANK  stus Rose
 ### ZCARD
 ZCARD stus
 ### ZCOUNT 
-- ZCOUNT 指定分数区间
+- ZCOUNT 统计指定分数区间内的个数
 ZCOUNT stus 0 85
+- 返回：
+(integer) 4
 
 ### ZINCRBY
 (Amy : 92)
@@ -42,5 +44,14 @@ ZINCRBY stus 2 Amy
 - 返回：
 "94"
 ### ZRANGE
-- ZRANGE 指定排名
+- ZRANGE 指定排名区间
 ZRANGE stus 0 2
+- 返回：
+1) "Miles"
+2) "Jerry"
+3) "Rose"
+### ZRANGEBYSCORE 
+ZRANGEBYSCORE stus 0 80
+- 返回：
+1) "Miles"
+2) "Jerry"
