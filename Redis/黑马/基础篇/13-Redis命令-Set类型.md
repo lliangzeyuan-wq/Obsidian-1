@@ -2,6 +2,8 @@
 
 ## Set 类型
 
+![[Pasted image 20260523163533.png|697]]
+
 Redis 的 Set 结构与 Java 中的`HashSet`类似，可以看做是一个 value 为`null`的`HashMap`。因为也是一个 hash 表，因此具备与`HashSet`类似的特征：
 
 - 无序
