@@ -41,7 +41,7 @@ data: 2026-03-14
 伪目标：
 	`.PHONY clean ALL`
 ![[Pasted image 20260315220216.png]]
-- 作用：防止当前目录中有clean文件或者ALL文件影响`make clean`命令的执行
+- 作用：防止当前目录中有clean文件或者ALL文件影响`make clean`命令的执行(如果当前文件中有clean文件的话，"clean :  -rm -rf $(obj) a.out" 就不会执行了)
 
 
 clean:
