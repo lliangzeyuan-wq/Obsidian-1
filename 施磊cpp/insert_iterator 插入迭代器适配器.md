@@ -16,11 +16,7 @@
 
 ### 语法
 
-cpp
-
-运行
-
-```
+```cpp
 std::insert_iterator<Container> insert_it(container, it);
 ```
 
@@ -32,11 +28,7 @@ std::insert_iterator<Container> insert_it(container, it);
 
 C++ 提供了辅助函数 `std::inserter()`，可以更方便地创建 `std::insert_iterator`：
 
-cpp
-
-运行
-
-```
+```cpp
 std::inserter(container, it);
 ```
 
@@ -46,11 +38,7 @@ std::inserter(container, it);
 
 以下代码展示了如何使用 `std::insert_iterator` 向 `std::list` 容器的指定位置插入元素：
 
-cpp
-
-运行
-
-```
+```cpp
 #include <iostream>
 #include <iterator>
 #include <list>
@@ -77,6 +65,14 @@ int main() {
     return 0;
 }
 ```
+
+我们一步一步看变化：
+
+1. 初始状态：`foo = [5, 5]`，`it` 指向第二个 `5`
+2. `insert_it = 1`：在 `it` 位置插入 `1` → `foo = [5, 1, 5]`，`it` 自动后移，指向原来的第二个 `5`（现在在索引 2）
+3. `insert_it = 2`：在 `it` 位置插入 `2` → `foo = [5, 1, 2, 5]`，`it` 再后移，指向原来的第二个 `5`（现在在索引 3）
+4. `insert_it = 3`：插入 `3` → `foo = [5, 1, 2, 3, 5]`，`it` 指向原来的第二个 `5`（现在在索引 4）
+5. `insert_it = 4`：插入 `4` → `foo = [5, 1, 2, 3, 4, 5]`，`it` 指向原来的第二个 `5`（现在在索引 5）
 
 ### 输出结果
 
@@ -109,7 +105,7 @@ plaintext
     
     运行
     
-    ```
+    ```cpp
     std::list<int> source = {1, 2, 3};
     std::list<int> target = {10, 20};
     auto it = ++target.begin(); // 指定插入位置（在 10 和 20 之间）
@@ -128,3 +124,34 @@ plaintext
 ## 五、总结
 
 通过 `std::insert_iterator`，可以灵活地向容器的任意位置插入元素，极大地增强了 STL 算法的适用性和扩展性。
+
+
+## 六、自动推导模板参数
+
+有两种等价写法，推荐用 `std::inserter` 辅助函数，更简洁也不容易写错：
+
+#### 写法 1：直接用模板参数
+
+cpp
+
+运行
+
+```
+std::insert_iterator<std::vector<std::string>> ins(keys, keys.begin());
+```
+
+- `std::vector<std::string>`：指明目标容器类型
+- `keys`：目标容器实例
+- `keys.begin()`：插入位置迭代器
+
+#### 写法 2：用 `std::inserter`（推荐）
+
+cpp
+
+运行
+
+```
+auto ins = std::inserter(keys, keys.begin());
+```
+
+`std::inserter` 会自动帮你推导模板参数，不用手动写，是更安全、更现代的写法。
