@@ -2,9 +2,10 @@
 data: 2026-03-13
 ---
 ### 网卡
+
+- 开
 sudo ip link set ens33 up
-
-
+- 获取ip
 sudo dhclient ens33
 
 
