@@ -135,16 +135,50 @@ bash（7876）
 - **getpid()**：获取**自己**的进程号
 - **getppid()**：获取**父进程**的进程号
 
-要不要我给你写一个极简可编译的小程序，你直接运行就能看到这三个 PID（bash、父进程、子进程）？
 
-快速
+### 示例程序
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <pthread.h>
 
-帮我写作
+int main(int argc , char * argv[])
+{
+	printf("before fork-1-\n");
+	printf("before fork-2-\n");
+	printf("before fork-3-\n");
+	printf("before fork-4-\n");
 
-编程
+	pid_t pid = fork();
+	if(pid == -1)
+	{
+		perror("fork error");
+		exit(1);
+	}
+	else if(pid == 0)
+	{
+		printf("---child is created , pid = %d , parent-pid = %d\n", getpid(), getppid());
+	}
+	else if(pid > 0)
+	{
+		printf("---parent process : my child is %d , my pid:%d , my parent pid:%d\n" , pid
+				,getpid() , getppid());
+	}
 
-图像生成
+	printf("=================end of file\n");
+	
+	return 0;
+	
+}
+```
 
-翻译
 
-更多
+### 运行结果
+![[Pasted image 20260528154336.png]]
+
+
+### 2233是怎么来的
+![[Pasted image 20260528154423.png]]
+可以看到，2233 对应的就是bash , 即终端。因为运行这个程序的就是终端，由此可知，所有的程序的父进程都是终端
