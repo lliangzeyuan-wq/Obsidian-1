@@ -1,4 +1,8 @@
 
+
+wnohang
+
+
 # `waitpid()` 函数详解
 
 `waitpid()` 是 Linux 系统中用于等待子进程状态变化的核心系统调用，是 `wait()` 的增强版，功能更灵活。
@@ -112,6 +116,9 @@ int main(void)
 ### 示例 2：非阻塞等待（父进程不卡住）
 
 ```c
+
+
+
 while (1) {
     // 非阻塞等待任意子进程
     wpid = waitpid(-1, &status, WNOHANG);
