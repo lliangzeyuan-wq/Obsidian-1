@@ -72,7 +72,6 @@ int Dijkstra(vector<vector<uint>>& graph,
 
     return dis[end];
 }
-
 int main()
 {
     vector<vector<uint>> graph =
