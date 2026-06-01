@@ -36,6 +36,7 @@ int Dijkstra(vector<vector<uint>>& graph,
         int min = INF; //存权值
         for (int j = 0; j < N; ++j)
         {
+	        //找没有放到S集合中的U集合中的值最小的
             if (!use[j] && dis[j] < min)
             {
                 min = dis[j];
