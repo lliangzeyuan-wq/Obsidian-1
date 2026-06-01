@@ -1,3 +1,5 @@
+- 引入小根堆，更新的时候无法“进入”小根堆操作，因此需要重复添加，加入use[]检测 , 因此这个时间复杂度不一定是优化
+
 ```cpp
 #include<iostream>
 #include<vector>
@@ -99,4 +101,8 @@ int main()
         cout << "distance:" << distance << endl;
     }
 }
+
+
+
+
 ```
