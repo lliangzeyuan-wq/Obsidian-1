@@ -29,6 +29,7 @@ int Dijkstra(vector<vector<uint>>& graph,
     }
 
     //把U集合中的定点处理完
+    //因为已经处理了一个了，f
     for (int i = 1; i < N; ++i)
     {
         //先从U集合中找到权值最小的顶点
