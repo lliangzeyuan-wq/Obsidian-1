@@ -100,4 +100,4 @@ struct itimerval {
 - `it_value`：**第一次多久响**
 - `it_interval`：**之后每隔多久循环响**
 
-1000000
+100
