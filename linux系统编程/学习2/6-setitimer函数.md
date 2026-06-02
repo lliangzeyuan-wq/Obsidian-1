@@ -93,3 +93,11 @@ struct itimerval {
     } it_value;
 };
 ```
+
+
+- `tv_sec`：整数秒
+- `tv_usec`：微秒，范围`0~999999 μs`  (0s - 0.999999s)
+- `it_value`：**第一次多久响**
+- `it_interval`：**之后每隔多久循环响**
+
+1000000
