@@ -79,3 +79,17 @@
 
 # 参数new_value  
 
+
+```
+struct itimerval {
+    struct timeval {
+        time_t      tv_sec;     /* seconds */
+        suseconds_t tv_usec;    /* microseconds */
+    } it_interval;
+
+    struct timeval {
+        time_t      tv_sec;     /* seconds */
+        suseconds_t tv_usec;    /* microseconds */
+    } it_value;
+};
+```
