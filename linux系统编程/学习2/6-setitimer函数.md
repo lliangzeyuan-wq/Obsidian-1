@@ -1,0 +1,1 @@
+`int setitimer(int which, const struct itimerval *new_value, struct itimerval *old_value);   `
