@@ -56,7 +56,7 @@ int setitimer(int which, const struct itimerval *new_val, struct itimerval *old_
 ```
 
 - 第二个参数作用：设置这个闹钟的时间
-- 第三个参数作用：传出参数，把上一个闹钟的的定时参数
+- 第三个参数作用：传出参数，old.it_value：上一次定时器 距离下一次触发还剩的时间（秒 + 微秒），old.it_interval：上一次定时器 周期是多少（一次性 / 周期性）
 
 ## 四、完整周期示例代码（可直接编译运行）
 
