@@ -43,3 +43,5 @@ int main(void)
 2. 进程收到 SIGALRM**默认处理：直接终止程序**
 3. `for(;;)`死循环不停计数打印，1 秒到收到信号，程序立刻退出
 
+- `time ./alarm`  结果：
+![[Pasted image 20260602132133.png]]
