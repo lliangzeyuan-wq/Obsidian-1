@@ -1,103 +1,101 @@
-# alarm 自然定时法完整释义
+# setitimer 函数 学习笔记
 
-## 核心一句话
+## 一、函数头文件与原型
 
-`alarm(n)`填写的秒是**墙上自然钟表时间**，**不受进程运行 / 阻塞 / 挂起 / 僵尸状态影响**，内核独立倒计时，到点必发 SIGALRM 信号。
-
-## 拆分逐条解释
-
-1. **定时是自然物理秒**
-    
-    `alarm(1)`：从调用瞬间开始，**真实钟表走满 1 整秒**就计时结束，不是程序 CPU 运行耗时。
-    
-2. **进程挂起 / 暂停 / 阻塞不暂停闹钟**
-    
-    哪怕程序被挂起休眠、阻塞卡住、死循环等待 IO，**内核闹钟照样一秒一秒往前走**，不会停表。
-    
-    例：程序休眠 0.5s，剩余闹钟继续走，总耗时凑够 1s 就发信号。
-    
-3. **1 秒到固定发 SIGALRM 信号**
-    
-    倒计时走完，内核无条件给该进程发送 14 号 SIGALRM，进程默认收到信号直接终止，**不管此时程序在死循环、在内核态、用户态运行**。
-    
-4. **最终表现：程序固定约 1s 结束**
-    
-    哪怕中间进程休眠、卡死、阻塞，`time`命令里`real`始终≈1s，和 CPU (user+sys) 占用无关。
-    
-
-## 补充区分
-
-- user/sys：CPU 实际干活时间，进程休眠时这俩数值停滞
-- alarm 计时：系统墙上时钟，**全程匀速走时，进程状态完全不干扰**
-
-
-
-
-
-# 函数原型
-
-`int setitimer(int which, const struct itimerval *new_value, struct itimerval *old_value);   `
-
-# 参数 which：指定定时方式
-```
-① 自然定时：ITIMER_REAL → 14）SIGALRM      计算自然时间
-② 虚拟空间计时(用户空间)：ITIMER_VIRTUAL → 26）SIGVTALRM    只计算进程占用cpu的时间
-③ 运行时计时(用户+内核)：ITIMER_PROF → 27）SIGPROF       计算占用cpu及执行系统调用的时间
+```c
+#include <sys/time.h>
+int setitimer(int which, const struct itimerval *new_val, struct itimerval *old_val);
 ```
 
----
+- 返回值：成功`0`，失败`-1`，`perror`查看错误
 
-### 三种 setitimer 定时模式详解💡
+## 二、参数 which：三种计时模式（对应不同信号）
 
-### 1. ITIMER_REAL（自然计时，对标 alarm）
+表格
 
-- **信号**：`SIGALRM(14)`，和`alarm()`触发同一个信号
-- **计时规则：墙上物理自然时间**
-    
-    从调用开始，系统真实时钟持续走时，**进程阻塞、休眠、挂起照样计时**，时间到发信号；和`alarm`计时逻辑完全一致，精度微秒 us，支持**周期性重复定时**（alarm 只能单次秒级）。
+|参数|信号|计时规则|
+|---|---|---|
+|ITIMER_REAL|SIGALRM(14)|**自然墙上时间**，进程休眠 / 阻塞照样计时（对标 alarm）|
+|ITIMER_VIRTUAL|SIGVTALRM(26)|只统计**用户态 CPU 占用时间**，休眠不计时|
+|ITIMER_PROF|SIGPROF(27)|用户 + 内核 CPU 总耗时（用户代码 + 系统调用）|
 
-> 例：定时 1s，进程 sleep (0.5s)，剩余 0.5s 继续走时，满 1s 触发信号。
+> 常用：`ITIMER_REAL`，和 alarm 共用 SIGALRM 信号。
 
-### 2. ITIMER_VIRTUAL（用户态 CPU 计时）
+## 三、核心结构体：struct itimerval
 
-- **信号**：`SIGVTALRM(26)`
-- **计时规则：只统计用户态 CPU 运行时间**
-    
-    只有进程在**用户代码占用 CPU 运算**时才走钟；进程休眠、阻塞、内核系统调用时**停止计时**。
+c
 
-> 例：设定用户 CPU1s 到时发信号，程序一半时间 sleep 休眠，需要实际自然时间远大于 1s 才会触发。
-
-### 3. ITIMER_PROF（用户 + 内核 CPU 合计计时）
-
-- **信号**：`SIGPROF(27)`
-- **计时规则：用户态 CPU + 内核态系统调用 CPU 总和**
-    
-    进程跑用户代码、调用系统函数 (printf/read/write 等内核操作) 都计时；只有完全休眠阻塞不占 CPU 时停表，常用于程序性能采样剖析。
-
-# 传出参数 old_value ：上次定时剩余的时间
-- 和 alarm 的返回值一样
-
-# 参数new_value  
-
+运行
 
 ```
 struct itimerval {
-    struct timeval {
-        time_t      tv_sec;     /* seconds */
-        suseconds_t tv_usec;    /* microseconds */
-    } it_interval;
+    struct timeval it_interval; // 循环周期：第一次超时后，后续定时时长
+    struct timeval it_value;    // 首次定时：从setitimer调用开始第一次倒计时
+};
 
-    struct timeval {
-        time_t      tv_sec;     /* seconds */
-        suseconds_t tv_usec;    /* microseconds */
-    } it_value;
+struct timeval {
+    time_t      tv_sec;     // 秒
+    suseconds_t tv_usec;    // 微秒(1s=1000000us，范围0~999999)
 };
 ```
 
+### 字段口诀
 
-- `tv_sec`：整数秒
-- `tv_usec`：微秒，范围`0~999999 μs`  (0s - 0.999999s)
-- `it_value`：**第一次多久响**
-- `it_interval`：**之后每隔多久循环响**
+`it_value`：**第一次多久触发信号**
 
-100
+`it_interval`：**首次触发后，后续每隔多久循环触发**
+
+1. `it_interval={0,0}`：**单次定时，只触发 1 次（等价 alarm）**
+2. `it_interval≠{0,0}`：**周期性循环定时，反复发信号**
+
+
+## 四、完整周期示例代码（可直接编译运行）
+
+运行
+
+```c
+#include <stdio.h>
+#include <sys/time.h>
+#include <signal.h>
+
+// SIGALRM信号处理函数
+void myfunc(int signo)
+{
+    printf("hello world\n");
+}
+
+int main(void)
+{
+    struct itimerval it, oldit;
+    // 绑定SIGALRM触发后的回调函数
+    signal(SIGALRM, myfunc);
+
+    // 首次2秒触发
+    it.it_value.tv_sec = 2;
+    it.it_value.tv_usec = 0;
+    // 之后每隔5秒循环触发
+    it.it_interval.tv_sec = 5;
+    it.it_interval.tv_usec = 0;
+
+    // 开启自然定时闹钟
+    if(setitimer(ITIMER_REAL, &it, &oldit) == -1){
+        perror("setitimer error");
+        return -1;
+    }
+
+    while(1); // 死循环阻塞，进程不退出，等待定时信号
+    return 0;
+}
+```
+
+### 程序运行时序
+
+- 0s：启动定时器
+- 2s：第一次打印`hello world`
+- 7s：第二次打印（2+5）
+- 12s：第三次打印……**无限每 5s 循环输出**
+
+## 五、setitimer vs alarm
+
+1. alarm：**单一定时、只能整秒、一个进程仅 1 个闹钟**，只能单次触发
+2. setitimer：**微秒精度、3 类独立闹钟、支持周期性循环定时**，完全替代 alarm
