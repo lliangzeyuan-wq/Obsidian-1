@@ -34,10 +34,11 @@
 
 
 
+# 函数原型
 
 `int setitimer(int which, const struct itimerval *new_value, struct itimerval *old_value);   `
 
-参数：which：指定定时方式
+# 参数 which：指定定时方式
 ```
 ① 自然定时：ITIMER_REAL → 14）SIGALRM      计算自然时间
 ② 虚拟空间计时(用户空间)：ITIMER_VIRTUAL → 26）SIGVTALRM    只计算进程占用cpu的时间
@@ -46,7 +47,7 @@
 
 ---
 
-## 三种 setitimer 定时模式详解💡
+### 三种 setitimer 定时模式详解💡
 
 ### 1. ITIMER_REAL（自然计时，对标 alarm）
 
@@ -72,3 +73,8 @@
 - **计时规则：用户态 CPU + 内核态系统调用 CPU 总和**
     
     进程跑用户代码、调用系统函数 (printf/read/write 等内核操作) 都计时；只有完全休眠阻塞不占 CPU 时停表，常用于程序性能采样剖析。
+
+# 传出参数 old_value ：上次定时剩余的时间
+- 和 alarm 的返回值一样
+
+# 参数new_value  
