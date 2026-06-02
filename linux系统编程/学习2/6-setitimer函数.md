@@ -48,6 +48,15 @@ struct timeval {
 1. `it_interval={0,0}`：**单次定时，只触发 1 次（等价 alarm）**
 2. `it_interval≠{0,0}`：**周期性循环定时，反复发信号**
 
+# 四
+- 函数原型
+```c
+#include <sys/time.h>
+int setitimer(int which, const struct itimerval *new_val, struct itimerval *old_val);
+```
+
+- 第二个参数作用：设置这个闹钟的时间
+- 第三个参数作用：传出参数，把上一个闹钟的的定时参数
 
 ## 四、完整周期示例代码（可直接编译运行）
 
