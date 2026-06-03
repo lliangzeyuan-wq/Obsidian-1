@@ -90,3 +90,49 @@ var vm = new Vue({
 ### 指令简写
 
 `v-on:xxx` → `@xxx`、`v-bind:style` → `:style`
+
+
+
+# keyup 和 .enter 拆分讲解
+
+## 1、`keyup`
+
+**键盘事件：按键抬起事件**
+
+手指按下键盘、松开按键**一瞬间**触发这个事件。
+
+- 只用`v-on:keyup="fn"`：**随便按任意键松开，都执行函数**
+
+## 2、`.enter` 回车按键修饰符
+
+**限定按键：只认回车键**，搭配在 keyup 后面做筛选。
+
+html
+
+预览
+
+```
+v-on:keyup.enter="showinputvalue"
+```
+
+### 组合效果：
+
+`keyup.enter` = **只有按下【回车键、松开回车】才触发函数**，按字母 / 空格等其他按键无效。
+
+## 整行逻辑
+
+html
+
+预览
+
+```
+<input v-on:keyup.enter="showinputvalue">
+```
+
+1. 输入框打字
+2. **敲回车 → 松开回车 → keyup 触发 + .enter 匹配 → 运行 showinputvalue**
+3. 函数拿到输入内容赋值 name，页面`{{name}}`展示文字
+
+## 拓展组合写法
+
+`v-on:keyup.ctrl.enter="fn"` → **Ctrl + 回车一起松开才触发**
