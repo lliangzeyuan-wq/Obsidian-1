@@ -7,3 +7,4 @@
 | `.capture` | 捕获模式，父元素优先触发事件                |
 | `.self`    | 只有点击**自身标签**才触发，点击子元素无效       |
 | `.passive` | 优化滚动性能，禁止 preventDefault 干预滚动 |
+`.prevent`等价`.preventDefault`；`.stop`等价`.stopPropagation`
