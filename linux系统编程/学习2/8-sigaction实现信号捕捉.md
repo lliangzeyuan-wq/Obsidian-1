@@ -112,3 +112,48 @@ int main(void)
 ## 补充：和之前未决信号 sigpending 配套
 
 sigaction 的`sa_mask`配合`sigprocmask`阻塞信号，被阻塞的信号就会变成**未决信号**，通过`sigpending`获取，正好对应你文档开头的练习题。   
+
+
+
+# 黑马程序员的代码例子
+```c
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+
+// 错误处理函数
+void sys_err(const char *str)
+{
+    perror(str);
+    exit(1);
+}
+
+// 信号捕捉回调函数
+void sig_catch(int signo)
+{
+    printf("catch you!! %d\n", signo);
+    return ;
+}
+
+int main(int argc, char *argv[])
+{
+    struct sigaction act, oldact;
+    // 指定信号处理函数
+    act.sa_handler = sig_catch;
+    // 清空临时屏蔽集sa_mask
+    sigemptyset(&act.sa_mask);
+    // 默认标志位=0
+    act.sa_flags = 0;
+
+    // 注册SIGINT信号
+    int ret = sigaction(SIGINT, &act, &oldact);
+    if (ret == -1)
+        sys_err("sigaction error");
+
+    while (1); // 循环阻塞等待信号
+    return 0;
+}
+```
+
