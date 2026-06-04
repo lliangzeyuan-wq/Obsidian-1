@@ -9,7 +9,7 @@
 
 ![[Pasted image 20260604175852.png]]
 # 问题
-- find优化之后，每次调用find的时候，层高可能会变化，但是我们的代码里面rank没有相应的跟着变化。因此find
+- find优化之后，每次调用find的时候，层高可能会变化，但是我们的代码里面rank没有相应的跟着变化。==因此find优化和merge优化是冲突的==
 # 代码
 ```cpp
 #include<iostream>
