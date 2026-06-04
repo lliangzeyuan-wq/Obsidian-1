@@ -37,7 +37,7 @@ struct sigaction {
     void (*sa_sigaction)(int, siginfo_t *, void *);
     
     
-    // 3. 信号屏蔽集：执行回调函数期间，临时屏蔽的信号
+    // 3. 信号屏蔽集：执行回调函数期间，临时屏蔽的信号（强调一下，这个只工作于 信号捕捉函数/回调函数/自定义函数 执行期间）
     sigset_t sa_mask;
     // 4. 标志位，控制函数行为
     int sa_flags;
