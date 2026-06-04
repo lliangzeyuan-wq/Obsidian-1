@@ -134,7 +134,6 @@ void sys_err(const char *str)
 void sig_catch(int signo)
 {
     printf("catch you!! %d\n", signo);
-    return ;
 }
 
 int main(int argc, char *argv[])
@@ -142,7 +141,7 @@ int main(int argc, char *argv[])
     struct sigaction act, oldact;
     // 指定信号处理函数
     act.sa_handler = sig_catch;
-    // 清空临时屏蔽集sa_mask
+    // 清空临时屏蔽集sa_mask，sa_mask只在回调函数工作时有效
     sigemptyset(&act.sa_mask);
     // 默认标志位=0
     act.sa_flags = 0;
