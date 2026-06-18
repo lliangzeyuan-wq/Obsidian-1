@@ -64,7 +64,7 @@ struct sigaction {
     
 4. **sa_flags 常用宏**
     
-
+- `SA_INTERRURT`  :  默认属性 ， 代表不重启
 - `SA_SIGINFO`：启用 sa_sigaction 扩展回调
 - `SA_RESTART`：被信号打断的系统调用 (read/write) 自动重启（不会返回 EINTR 错误）
 - `SA_RESETHAND`：信号触发一次后，自动变回默认处理（模仿旧版 signal 特性）
