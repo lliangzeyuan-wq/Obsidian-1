@@ -5,7 +5,7 @@
 vue
 
 ```
-<!-- HTML结构 -->
+<!-- 页面模板：HTML骨架 + Vue指令 + JS插值表达式 -->
 <template>
   <div class="box">{{ msg }}</div>
 </template>
