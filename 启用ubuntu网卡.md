@@ -22,3 +22,10 @@ sudo dhclient ens33
 
 ### 中文输入法启用
 fcitx5 &
+
+
+# 共享文件夹位置
+
+Windows ：  /D/VM_Share
+
+Ubuntu :  /mnt/hgfs/VM_Share   
