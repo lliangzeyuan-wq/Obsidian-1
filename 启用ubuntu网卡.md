@@ -29,3 +29,6 @@ fcitx5 &
 Windows ：  /D/VM_Share
 
 Ubuntu :  /mnt/hgfs/VM_Share   
+
+
+# 阿里云个人访问
