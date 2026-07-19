@@ -68,3 +68,8 @@ ss -tlnp | grep -E "9876|10911|8082"
 - 停止全部服务：`docker stop rocketmq-namesrv rocketmq-broker rocketmq-dashboard`
 - 重启全部服务：`docker restart rocketmq-namesrv rocketmq-broker rocketmq-dashboard`
 - 实时查看 Broker 日志：`docker logs -f rocketmq-broker`
+
+
+# 三、conf
+
+rocket-mq: name-server: 192.168.198.132:9876
